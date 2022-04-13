@@ -2,42 +2,32 @@
 <html lang="en">
 <head>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script>
+        $(function(){
+          $("#header").load("header.html"); 
+          $("#mobile-header").load("mobile_header.html");
+          $("#footer").load("footer.html"); 
+        });
+    </script>
+
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="css/general-style.css">
+    <link rel="stylesheet" href="css/mobile-style.css">
     <link rel="stylesheet" href="css/index-style.css">
+    
+
+    <script src="javascript/dropdown.js" async defer></script>
+
     <title>Αρχική Σελίδα</title>
 </head>
 <body>
-    <div class="header">
-        <div class="header-left">
-            <a href="index.html">
-                <img src="images/logo.png" alt="logo">
-                Στατιστικά Παγκυπρίων
-            </a>
-        </div>
-        <div class="header-right">
-            <div class="home">
-                <a href="index.html">
-                    <img src="images/home.png" alt="home">
-                    Αρχική Σελίδα
-                </a>
-            </div>
-            <div class="about">
-                <a href="about.html">
-                    <img src="images/about.png" alt="login">
-                    Σχετικά
-                </a>
-            </div>
-            <div class="contact">
-                <a href="contact.html">
-                    <img src="images/contact.png" alt="contact">
-                    Επικοινωνήστε μαζί μας
-                </a>
-            </div>
-        </div>
-    </div>
+    <div id="header"> </div>
+    <div id="mobile-header"> </div>
+
     <div class="main-content">
         <div class="card">
             <a href="mean_rank.html">

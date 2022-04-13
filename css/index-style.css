@@ -4,7 +4,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 60px;
-    padding: 60px;
+    padding: 60px 10px;
 }
 
 .card{
