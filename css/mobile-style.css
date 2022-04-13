@@ -1,4 +1,10 @@
 @media (max-width: 600px){
+    :root{
+        --title-font-size: 16px;
+        --subtitle-font-size: 14px;
+        --text-font-size: 12px;
+    }
+
     .mobile-header{
         display:flex;
         flex-direction:column;
@@ -59,5 +65,24 @@
 
     .header{
         display:none;
+    }
+
+
+    /* Table styles */
+
+    th,td{
+        padding: 10px 20px;
+    }
+
+    .main-content{
+        padding: 5px;
+    }
+
+    #filter-input{
+        gap: 10px;
+    }
+
+    #filter-input input{
+        width: 50%;
     }
 }
