@@ -12,7 +12,6 @@ $(document).ready(function(){
 
 
     btn.click( function() {
-        console.log("here");
-        $(document).scrollTop(0);
+        $("html, body").animate({scrollTop:0}, 600);
     });
 });
