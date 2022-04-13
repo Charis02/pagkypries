@@ -106,6 +106,7 @@ body{
 }
 
 #top-button{
+    -webkit-tap-highlight-color: transparent;
     display: none;
     opacity: 1;
     flex-direction: row;
