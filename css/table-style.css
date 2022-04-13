@@ -3,7 +3,7 @@ table{
 }
 
 th {
-    font-size: 26px;
+    font-size: var(--title-font-size);
     font-weight: bold;
     background-color: var(--secondary-color);
 
@@ -14,7 +14,7 @@ th {
 }
 
 td{
-    font-size: 20px;
+    font-size: var(--text-font-size);
     font-weight: bold;
     background-color: #fff;
     color: var(--primary-color);
@@ -48,5 +48,5 @@ td{
     border: var(--alternative-color) solid 1px;
     border-radius: 5px;
     padding: 10px;
-    font-size: 18px;
+    font-size: var(--subtitle-font-size);
 }

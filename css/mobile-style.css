@@ -5,16 +5,13 @@
         justify-content:center;
         align-items:center;
         background-color:var(--primary-color);
+        width: 100%;
     }
 
     .mobile-header-top{
         display:flex;
-        justify-content: space-between;
-        align-items:center;
-        gap: 200px;
-        padding-top: 20px;
+        padding: 12px 0;
         width: 100%;
-        margin-bottom: 10px;
     }
 
     .mobile-header-dropdown,.mobile-header-left{
@@ -22,12 +19,22 @@
         width: 20%;
     }
 
+    .mobile-header-dropdown{
+        margin-left: auto;
+    }
+
+    .mobile-header-dropdown,.mobile-header-left{
+        display:flex;
+        justify-content:center;
+    }
+
     .mobile-header img{
         height: auto;
-        max-width: 45px;
+        max-width: 36px;
     }
 
     .mobile-header-dropdown-content{
+        overflow: hidden;
         display: none;
         flex-direction: column;
         justify-content: center;
@@ -49,8 +56,6 @@
         text-decoration: none;
         color: #fff;
     }
-
-
 
     .header{
         display:none;
