@@ -4,7 +4,7 @@ $(document).ready(function(){
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
         btn.css('display', 'flex');
         value = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
-      btn.css('opacity',Math.min(1,(value)/5000));
+      btn.css('opacity',Math.min(1,(value)/10000));
     } else {
         btn.css('display', 'none');
         btn.css('opacity',0);
