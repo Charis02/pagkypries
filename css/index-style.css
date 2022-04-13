@@ -34,7 +34,7 @@
     margin-bottom: 2px;
     text-align: center;
     text-decoration: underline;
-    text-decoration-color: #fca311;
+    text-decoration-color: var(--secondary-color);
     color: var(--primary-color)
 }
 

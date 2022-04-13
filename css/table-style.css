@@ -8,9 +8,9 @@ th {
     background-color: var(--secondary-color);
 
 
-    padding: 20px 15px;
+    padding: 20px 60px;
     text-align: center;
-    border: #000 solid 1px;
+    border: var(--alternative-color) solid 1px;
 }
 
 td{
@@ -19,7 +19,7 @@ td{
     background-color: #fff;
     color: var(--primary-color);
 
-    padding: 20px 15px;
+    padding: 20px 60px;
     text-align: center;
 
     border: var(--alternative-color) solid 1px;;

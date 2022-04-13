@@ -93,3 +93,27 @@ body{
 .header .header-right a:hover{
     text-decoration: underline;
 }
+
+#top-button{
+    display: flex;
+    opacity: 0;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    background-color: var(--primary-color);
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+
+
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* overlay */
+}
+
+#top-button img{
+    height: auto;
+    max-width: 30px;
+}
