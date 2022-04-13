@@ -11,7 +11,7 @@ function getJSON(data)
     window.data = [];
 
     // The header row
-    let header = ["code", "Lesson1", "Lesson2"];
+    let header = ["code", "Lesson1", "Lesson2","Lesson3","Lesson4","Lesson5","Lesson6","Lesson7","Lesson8"];
     window.data.push(header);
 
     // The data rows
@@ -22,7 +22,8 @@ function getJSON(data)
 
         for (let j = 0; j < header.length; j++)
         {
-            row.push(json[i][header[j]]);    
+            if (typeof json[i][header[j]] !== "undefined")
+                row.push(json[i][header[j]]); 
         }
 
         window.data.push(row);
