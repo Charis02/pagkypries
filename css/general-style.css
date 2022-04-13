@@ -9,6 +9,7 @@
 }
 
 body{
+    -webkit-tap-highlight-color: transparent;
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
@@ -103,7 +104,6 @@ body{
 }
 
 #top-button{
-    -webkit-tap-highlight-color: transparent;
     display: none;
     opacity: 1;
     flex-direction: row;

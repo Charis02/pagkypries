@@ -85,4 +85,10 @@
     #filter-input input{
         width: 50%;
     }
+
+    .card{
+        height: auto !important;
+        width: 150px !important;
+    }
+
 }
