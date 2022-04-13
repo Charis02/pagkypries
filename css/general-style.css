@@ -1,3 +1,9 @@
+:root{
+    --primary-color: #14213d;
+    --secondary-color: #fca311;
+    --alternative-color: #e5e5e5;
+}
+
 body{
     display: flex;
     flex-direction: column;
@@ -13,7 +19,7 @@ body{
     justify-content: space-between;
     align-items: center;
 
-    background-color: #14213d;
+    background-color: var(--primary-color);
     border-bottom: #000 solid 2px;
     text-align: center;
     padding: 20px 64px;

@@ -35,7 +35,7 @@
     text-align: center;
     text-decoration: underline;
     text-decoration-color: #fca311;
-    color: #14213d;
+    color: var(--primary-color)
 }
 
 .card-content{
