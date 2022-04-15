@@ -75,7 +75,11 @@
     }
 
     .main-content{
-        padding: 5px;
+        padding: 15px !important;
+    }
+
+    .index-main{
+        gap: 20px !important;
     }
 
     #filter-input{
@@ -88,7 +92,7 @@
 
     .card{
         height: auto !important;
-        width: 150px !important;
+        width: 160px !important;
     }
 
 }
