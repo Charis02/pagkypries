@@ -5,6 +5,15 @@
         --text-font-size: 12px;
     }
 
+    .header-top{
+        padding: 12px 12px;
+        width: auto;
+    }
+
+    .header-dropdown-content{
+        padding-left: 12px;
+    }
+
     /* Table styles */
 
     th,td{

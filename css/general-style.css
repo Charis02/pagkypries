@@ -37,7 +37,6 @@ body{
 }
 
 .header-dropdown,.header-left,.dropdown-icon{
-    display:flex;
     width: 10%;
     display:flex;
     justify-content:flex-end;
@@ -63,14 +62,12 @@ body{
 
     background-color: var(--primary-color);
     border-top: 1px solid var(--secondary-color);
-    width: 100%;
 }
 
 .header-dropdown-content a{
     display: flex;
     align-items: center;
     gap: 20px;
-    width: 100%;
 
     padding: 10px 0;
 
