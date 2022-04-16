@@ -6,19 +6,19 @@ $(document).ready(function() {
         if ($(event.target).hasClass("dropdown-related") == false)
         {
             if (ison) {
-                $(".mobile-header-dropdown-content").hide(1000);
+                $(".header-dropdown-content").hide(1000);
                 ison = false;
             }
         }
     });
 
-    $(document).on('click',".mobile-header-dropdown",function() {
+    $(document).on('click',".header-dropdown",function() {
         
         if (ison) {
-            $(".mobile-header-dropdown-content").hide(1000);
+            $(".header-dropdown-content").hide(1000);
             ison = false;
         } else {
-            $(".mobile-header-dropdown-content").show(1000);
+            $(".header-dropdown-content").show(1000);
             ison = true;
         }
     });
