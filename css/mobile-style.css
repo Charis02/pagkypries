@@ -46,4 +46,14 @@
         width: 160px !important;
     }
 
+    /* Select styles */
+
+    #lesson-filter{
+        gap: 10px;
+    }
+
+    #lesson-filter select{
+        width: 50%;
+    }
+
 }
