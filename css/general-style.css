@@ -30,6 +30,24 @@ body{
     top: 0;
 }
 
+#header .main-title{
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    margin-left: 4vw;
+    padding: 0;
+    
+    font-size: var(--title-font-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.dropdown-text{
+    margin-left: 4vw;
+}
+
 .header-top{
     display:flex;
     padding: 12px 0;
@@ -37,7 +55,7 @@ body{
 }
 
 .header-dropdown,.header-left,.dropdown-icon{
-    width: 10%;
+    width: 6%;
     display:flex;
     justify-content:flex-end;
 }
@@ -67,12 +85,15 @@ body{
 .header-dropdown-content a{
     display: flex;
     align-items: center;
-    gap: 20px;
-
+   
     padding: 10px 0;
 
     text-decoration: none;
     color: #fff;
+}
+
+.header-dropdown-button{
+    cursor:pointer;
 }
 
 #top-button{
