@@ -1,26 +1,26 @@
-function change_lesson() {
+function change_lesson() 
+{
+    let table = $("#table");
+    let rows = table.find("tr");
+    let code = "lesson-"+$("#lesson-selector").val();
 
-        let table = $("#table");
-        let rows = table.find("tr");
-        let code = "lesson-"+$("#lesson-selector").val();
+    // set input valute to empty
+    $("#filter-input-text").val("");
 
-        // set input valute to empty
-        $("#filter-input-text").val("");
+    for (let i = 1;i < rows.length;i++)
+    {
+        let row = rows[i];
 
-        for (let i = 1;i < rows.length;i++)
+        if(!row.classList.contains(code))
         {
-            let row = rows[i];
-
-            if(!row.classList.contains(code))
-            {
-                row.style.display = "none";
-            }
-            else
-            {
-                row.style.display = "table-row";
-            }
+            row.style.display = "none";
+        }
+        else
+        {
+            row.style.display = "table-row";
         }
     }
+}
 
 $(document).ready(function(){
     let inp = $("#filter-input-text");
@@ -50,7 +50,8 @@ $(document).ready(function(){
                 }
             }
         }
-        else {
+        else 
+        {
             for(let i =1;i < rows.length;i++)
             {
                 if(rows[i].classList.contains(lesson_code))
