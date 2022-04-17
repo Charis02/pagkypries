@@ -2,7 +2,7 @@ $(document).ready(function(){
 
     let inp = $("#filter-input-text");
     inp.keyup(function(e){
-        let table = $("#mean-table");
+        let table = $("#table");
         let rows = table.find("tr");
         let val = inp.val();
         
