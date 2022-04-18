@@ -50,7 +50,7 @@ function prepareData(candidates) {
     return result;
 }
 
-getData().then(function(data){
+getRawData().then(function(data){
     let header = ["Μάθημα","Ελάχιστη Βαθμολογία","Μέγιστη Βαθμολογία","Μέσος Όρος"];
     let rows = data.slice(1);
 

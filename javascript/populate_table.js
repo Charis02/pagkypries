@@ -35,6 +35,6 @@ function createHeader(header){
   
       document.getElementById("table").appendChild(row);
     }
-  }
+}
 
   

@@ -53,7 +53,7 @@ function prepareData(lesson_grades) {
         for(let i = 0;i < lesson_grades_sorted[lesson].length;i++)
         {
             lesson_grades_sorted[lesson][i][1] = i + 1;
-            temp_classes.push(lesson + "-" + lesson);
+            temp_classes.push("lesson-" + lesson);
         }
 
         result = result.concat(lesson_grades_sorted[lesson]);

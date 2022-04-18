@@ -49,7 +49,7 @@ function get_means(data){
   return result;
 }
 
-getData().then(function(data){
+getRawData().then(function(data){
   let header = ["Κωδικός Υποψηφίου","Κατάταξη","Μέσος Όρος"];
   let rows = data.slice(1);
   let processed_rows = get_means(rows);

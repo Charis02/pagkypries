@@ -45,4 +45,4 @@ async function getRawData()
     return data;
 }
 
-window.getData = getData;
+window.getRawData = getRawData;
