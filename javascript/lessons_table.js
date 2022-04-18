@@ -9,58 +9,60 @@ function sortFunc(a,b){
   }
   
 
-function prepareData(candidates) {
+function prepareData(lesson_grades) {
     let result = [];
-    let classes = {};
-    let lessons_names = [];
+    let classes = [];
+    let lesson_names = [];
     let lesson_codes = [];
 
-    for(let i = 0;i < candidates.length;i++)
+    let lesson_grades_sorted = {};
+
+    for(let i = 1;i < lesson_grades.length;i++)
     {
-        for(let j = 1;j < candidates[i].length;j++)
-        {
-            if(candidates[i][j] == "")
-                continue;
-            
-            value = candidates[i][j].split(":")[1];
-            if (value == "")
-                continue;
-            else if (value == ' ΑΠΟΥΣΙΑ')
-                value = 0.0;
-            else
-                value = parseFloat(value);
+        let lesson_name = lesson_grades[i][0].split("[")[0];
+        let lesson_code = lesson_grades[i][0].split("[")[1].split("]")[0];
+        let candidate_code = lesson_grades[i][1]
+        let grade = lesson_grades[i][2];
 
-            result.push([parseInt(candidates[i][0]),i,value,candidates[i][j].split(":")[0]]);
-        }
-    }
-
-    result.sort(sortFunc);
-    count_classes = {};
-
-    for(let i = 0;i < result.length;i++)
-    {
-        if(!(result[i][3] in count_classes))
-            count_classes[result[i][3]] = 1;
+        if(grade == "")
+            continue;
+        else if(grade == "ΑΠΟΥΣΙΑ")
+            grade = 0;
         else
-            count_classes[result[i][3]] += 1;
-        
-        result[i][2] = result[i][2].toFixed(3);
-        result[i][1] = count_classes[result[i][3]];
+            grade = parseFloat(grade);
 
-        let lesson_code = result[i][3].split("[")[1].split("]")[0];
-        let lesson_name = result[i][3].split("[")[0];
-
-        classes[i] = "lesson-"+lesson_code;
-
-        if (!lessons_names.includes(lesson_name)){
-            lessons_names.push(lesson_name);
-            lesson_codes.push(lesson_code)
+        if(!lesson_names.includes(lesson_name))
+        {
+            lesson_names.push(lesson_name);
+            lesson_codes.push(lesson_code);
         }
 
-        result[i].pop();
+        if(!lesson_grades_sorted[lesson_code])
+        {
+            lesson_grades_sorted[lesson_code] = [];
+        }
+
+        lesson_grades_sorted[lesson_code].push([candidate_code,0,grade]);
     }
 
-    return [result,classes,lessons_names,lesson_codes];
+    for(lesson in lesson_grades_sorted)
+    {
+        lesson_grades_sorted[lesson].sort(sortFunc);
+        let temp_classes = [];
+
+        for(let i = 0;i < lesson_grades_sorted[lesson].length;i++)
+        {
+            lesson_grades_sorted[lesson][i][1] = i + 1;
+            temp_classes.push(lesson + "-" + lesson);
+        }
+
+        result = result.concat(lesson_grades_sorted[lesson]);
+        classes = classes.concat(temp_classes);
+    }
+
+    console.log(result);
+
+    return [result,classes,lesson_names,lesson_codes];
 }
 
 function createSelect(lessons_names,lesson_codes) {
@@ -75,7 +77,7 @@ function createSelect(lessons_names,lesson_codes) {
     }
 }
 
-getData().then(function(data){
+getLessonsData().then(function(data){
     let header = ["Κωδικός Υποψηφίου","Κατάταξη","Βαθμολογία"];
     let rows = data.slice(1);
 

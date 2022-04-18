@@ -1,4 +1,4 @@
-function getJSON(data)
+function getRawJSON(data)
 {
     let json = data.Candidates;
     /*
@@ -32,14 +32,14 @@ function getJSON(data)
     return window.data;
 };
 
-async function getData()
+async function getRawData()
 {
     let data = await fetch("data/raw_data.json")
         .then(response => {
             return response.json();
         })
         .then(function (jasondata) {
-            return getJSON(jasondata);
+            return getRawJSON(jasondata);
         });
     
     return data;
