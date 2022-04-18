@@ -84,5 +84,7 @@ getData().then(function(data){
     createSelect(lesson_names,lesson_codes);
     createHeader(header);
     constructTable(table,header.length,classes);
+
+    change_lesson();
 });
   
