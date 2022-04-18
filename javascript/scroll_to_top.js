@@ -2,15 +2,18 @@ $(document).ready(function(){
     let btn = $("#top-button");
 
     $(window).scroll(function(){
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        btn.css('display', 'flex');
-        value = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+        
+        let limit = Math.min(10000,$(document).height() - $(window).height());
 
-      btn.css('opacity',Math.min(1,(value)/10000));
-    } 
-    else {
-        btn.css('display', 'none');
-        btn.css('opacity',0);
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            btn.css('display', 'flex');
+            value = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+
+            btn.css('opacity',Math.min(1,(value)/limit));
+        } 
+        else {
+            btn.css('display', 'none');
+            btn.css('opacity',0);
     }});
 
 
