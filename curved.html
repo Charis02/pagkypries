@@ -13,10 +13,12 @@
     <link rel="stylesheet" href="css/general-style.css">
     <link rel="stylesheet" href="css/table-style.css">
     <link rel = "stylesheet" href = "css/mobile-style.css">
+    <link rel = "stylesheet" href = "css/warning-style.css">
 
     <!--- JS --->
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    
     <script>
         $(function(){
           $("#header").load("header.html");
@@ -35,8 +37,32 @@
 <body>
     <div id="header"> </div>
 
-    <div class="main-content">
+    <div class="unblurred-area">
+        <div id="warning" class="unblurred">
+            <div class="closebtn unblurred" onclick="body.style.overflow='scroll'; $('.unblurred-area').fadeOut(600);">&times;</div>
 
+            <div class="warning-title unblurred">
+                Προσοχή!
+            </div>
+            <div class="warning-text unblurred">
+                <p>
+                Δεν είναι δυνατό να προβλέψουμε την αναγωγή με 100% ακρίβεια.
+                </p>
+                <p>
+                Για να έιναι ακριβής ο υπολογισμός της αναγωγής, χρειαζόμαστε δεδομένα που δεν 
+                δημοσιεύονται δημόσια (θα έπρεπε να ξέρουμε τα πλαίσια πρόσβασης που δήλωσε κάθε μαθητής).
+                </p>
+
+                <p>
+                    Αυτή η σελίδα προσφέρει απλά μία εκτίμιση, με την υπόθεση ότι όποιος μπορούσε
+                    να επιλέξει κάποιο πλαίσιο πρόσβασης το επέλεξε.
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
         <div id="filter-input">
             Εισάγετε τον αριθμό υποψηφίου στο πλαίσιο: 
             <input class="numbersOnly" id="filter-input-text" placeholder="Αναζήτηση...">
