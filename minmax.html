@@ -21,6 +21,8 @@
         $(function(){
           $("#header").load("header.html");
           $("#footer").load("footer.html"); 
+          $("head").prepend("google_tag_manager_head.html");
+          $("body").prepend("google_tag_manager_body.html");
         });
     </script>
     <script type="module" src="javascript/parse_raw_json.js"></script>

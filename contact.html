@@ -7,8 +7,9 @@
     <script>
         $(function(){
           $("#header").load("header.html"); 
-          $("#mobile-header").load("mobile_header.html");
           $("#footer").load("footer.html"); 
+          $("head").prepend("google_tag_manager_head.html");
+          $("body").prepend("google_tag_manager_body.html");
         });
     </script>
     <script src="javascript/page_transition.js" defer></script>
