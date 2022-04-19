@@ -43,7 +43,7 @@
     }
 
     .card{
-        height: 45vw !important;
+        height: auto !important;
         width: 40vw !important;
     }
 
