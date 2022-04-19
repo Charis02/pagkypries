@@ -10,6 +10,15 @@
 }
 
 body{
+    opacity: 0;
+    transition: opacity 0.6s;
+}
+
+span{
+    cursor: pointer;
+}
+
+body{
     -webkit-tap-highlight-color: transparent;   /* Disable mobile tap highlight */
 
     overflow-x: hidden;
@@ -83,7 +92,7 @@ body{
     border-top: 1px solid var(--secondary-color);
 }
 
-.header-dropdown-content a{
+.header-dropdown-content span{
     display: flex;
     align-items: center;
    
