@@ -60,8 +60,6 @@ function prepareData(lesson_grades) {
         classes = classes.concat(temp_classes);
     }
 
-    console.log(result);
-
     return [result,classes,lesson_names,lesson_codes];
 }
 

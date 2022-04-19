@@ -2,7 +2,6 @@ $(document).ready(function() {
     let ison = false;
 
     $(document).click(function(event) {
-        console.log(event.target);
         if ($(event.target).hasClass("dropdown-related") == false)
         {
             if (ison) {

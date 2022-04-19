@@ -56,7 +56,6 @@ getRawData().then(function(data){
 
     let table = prepareData(rows);
         
-    console.log(table);
     createHeader(header);
     constructTable(table,header.length);
 });

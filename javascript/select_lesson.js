@@ -39,8 +39,6 @@ $(document).ready(function(){
                 let cells = row.children;
                 let code = cells[0].innerHTML.toString();
 
-             //   console.log(code + " " + val + " " + code.includes(val));
-
                 if(!code.startsWith(val) || !row.classList.contains(lesson_code))
                 {
                     row.style.display = "none";
