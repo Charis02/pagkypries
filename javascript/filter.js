@@ -4,7 +4,7 @@ $(document).ready(function(){
     inp.keyup(function(e){
         let table = $("#table");
         let rows = table.find("tr");
-        let val = inp.val();
+        let val = inp.val().toString();
         
         if(val.length > 0)
         {
@@ -12,9 +12,9 @@ $(document).ready(function(){
             {
                 let row = rows[i];
                 let cells = row.children;
-                let code = cells[0].innerHTML;
+                let code = cells[0].innerHTML.toString();
 
-                if(code != val)
+                if(!code.startsWith(val))
                 {
                     row.style.display = "none";
                 }

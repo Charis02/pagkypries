@@ -28,19 +28,20 @@ $(document).ready(function(){
     inp.keyup(function(e){
         let table = $("#table");
         let rows = table.find("tr");
-        let val = inp.val();
+        let val = inp.val().toString();
         let lesson_code = "lesson-"+$("#lesson-selector").val();
         
         if(val.length > 0)
         {
-            console.log("here");
             for (let i = 1;i < rows.length;i++)
             {
                 let row = rows[i];
                 let cells = row.children;
-                let code = cells[0].innerHTML;
+                let code = cells[0].innerHTML.toString();
 
-                if(code != val || !row.classList.contains(lesson_code))
+             //   console.log(code + " " + val + " " + code.includes(val));
+
+                if(!code.startsWith(val) || !row.classList.contains(lesson_code))
                 {
                     row.style.display = "none";
                 }
