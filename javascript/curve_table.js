@@ -12,8 +12,6 @@ function process_data(data)
 {
     let result = [];
     
-    console.log(data.length);
-
     for(let code in data)
         result.push([code,0,parseFloat(data[code]).toFixed(2)]);
 
