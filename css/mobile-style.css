@@ -43,8 +43,14 @@
     }
 
     .card{
-        height: auto !important;
+        height: 45vw !important;
         width: 40vw !important;
+    }
+
+    .card-content
+    {
+        padding-top: 4px !important;
+        justify-content: flex-start !important;
     }
 
     /* Select styles */
