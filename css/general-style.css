@@ -53,6 +53,15 @@ body{
     justify-content: center;
 }
 
+#header .main-title h1{
+    font-size: var(--title-font-size);
+    color: white;
+    font-weight: bold;
+    padding:0;
+    margin: 0;
+
+}
+
 
 .dropdown-text{
     margin-left: 4vw;
