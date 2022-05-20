@@ -4,7 +4,7 @@ import numpy as np
 
 def f(x):
     x *= 10
-    return log2(x/(201-x))
+    return log10(x/(201-x))
 
 def filter_grades(grades,codes):
     filtered_grades = []
@@ -57,21 +57,39 @@ def get_final_ranking(data,plaisio):
     student_grade = {}
     student_count = {}
 
+    possible_candidates = []
+
     for lesson in plaisio:
         grades,codes = split_lesson_data(data[lesson])
         grades,codes = get_final_grades(grades,codes)
-        
+
         for i in range(len(codes)):
-            student_grade[codes[i]] = student_grade.get(codes[i],0) + grades[i]
             student_count[codes[i]] = student_count.get(codes[i],0) + 1
     
     for code in student_count:
         if student_count[code] != len(plaisio):
-            del student_grade[code]
             continue
-
-        student_grade[code] = student_grade[code]/len(plaisio)
+        
+        possible_candidates.append(code)
     
+    for lesson in plaisio:
+        grades,codes = split_lesson_data(data[lesson])
+
+        valid_grades = []
+        valid_codes = []
+        for i in range(len(grades)):
+            if codes[i] in possible_candidates:
+                valid_grades.append(grades[i])
+                valid_codes.append(codes[i])
+
+        grades,codes = get_final_grades(valid_grades,valid_codes)
+        
+        for i in range(len(codes)):
+            student_grade[codes[i]] = student_grade.get(codes[i],0) + grades[i]
+    
+    for code in student_grade:
+        student_grade[code] = student_grade[code]/len(plaisio)
+
     return student_grade
 
 def sort_ranking(ranking):
