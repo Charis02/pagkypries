@@ -15,7 +15,7 @@ class Plaisio:
         self.id = id
 
     def __str__(self):
-        return "Πλάισιο {}:\n\tΑπαιτούμενα: {}\n\tΠροαιρετικά: {}\n\tΠρέπει να επιλαγούν {} προεραιτικά μαθήματα".format(self.id,', '.join(self.mandatory),', '.join(self.optional),self.requiredNumber)
+        return "Πλάισιο {}:\n\n\tΑπαιτούμενα:\n\t---------------\n\t{}\n\n\tΠροαιρετικά:\n\t---------------\n\t{}\n\n\tΠρέπει να επιλαγούν {} προεραιτικά μαθήματα\n".format(self.id,'\n\t'.join(self.mandatory),'\n\t'.join(self.optional),self.requiredNumber)
 
     def satisfy(self,classes):
         """
@@ -111,10 +111,7 @@ class Lesson:
         Processes the grade of a candidate, as described
         in the paper.
         """
-        try:
-            return math.log10(x/(201-x))
-        except:
-            print("AAA",x)
+        return math.log10(x/(201-x))
 
     def get_average_grade(self):
         """

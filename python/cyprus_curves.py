@@ -79,10 +79,6 @@ def normalize(ranking):
     grades = [grade for code,grade in ranking]
     x = [np.percentile(grades,perc) for perc in p]  # grade corresponding to percentile
 
-    print(x)
-    print(len(grades))
-    print()
-
     result = {}
 
     for code,grade in ranking:
