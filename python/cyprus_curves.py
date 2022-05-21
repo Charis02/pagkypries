@@ -67,7 +67,8 @@ def get_ranking(candidates,plaisio):
     # curve grades for each lesson
     curved_grades = {}
     for lesson_name in lessons:
-        curved_grades[lesson_name] = lessons[lesson_name].curve()
+        if len(lessons[lesson_name].grades) > 0:
+            curved_grades[lesson_name] = lessons[lesson_name].curve()
             
     avg_grades = average_grades(curved_grades)
 
@@ -110,7 +111,7 @@ def parse_candidates(filename):
 
 candidates = parse_candidates("./data/raw_data.json")
 
-with open("./data/plaisia.json") as plaisia_fin:
+with open("./data/plaisia_cyprus.json") as plaisia_fin:
     plaisia_data = json.load(plaisia_fin)
 
     for code in plaisia_data:
