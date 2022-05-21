@@ -52,7 +52,7 @@ td{
     font-size: var(--subtitle-font-size);
 }
 
-#lesson-filter{
+.selector-filter{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -61,7 +61,7 @@ td{
     margin-bottom: 20px;
 }
 
-#lesson-filter select{
+select{
     width: 300px;
     height: 30px;
     border: var(--alternative-color) solid 1px;
