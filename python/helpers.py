@@ -30,6 +30,28 @@ class Plaisio:
         in this plaisio.
         """
         return self.mandatory + self.optional
+    
+    def total_lessons(self):
+        """
+        Returns a list of all the lessons that are
+        in this plaisio, but not in the optional
+        list.
+        """
+        return len(self.mandatory)+self.requiredNumber
+
+    def get_mandatory(self):
+        """
+        Returns a list of all the mandatory lessons
+        in this plaisio.
+        """
+        return self.mandatory
+    
+    def get_optional(self):
+        """
+        Returns a list of all the optional lessons
+        in this plaisio.
+        """
+        return self.optional
 
 class Candidate:
     """

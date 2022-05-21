@@ -19,21 +19,52 @@ def initialize_lessons(candidates,plaisio):
 
     return lessons
 
-def average_grades(grades):
+def average_grades(grades,plaisio):
     """
     Calculates average grade for each candidate.
     """
 
     result = {}
-    count = {}
 
-    for lesson_grades in grades.values():
+    for lesson in plaisio.get_mandatory():
+        lesson_grades = grades[lesson]
         for candidate in lesson_grades:
             result[candidate] = result.get(candidate,0) + lesson_grades[candidate]
-            count[candidate] = count.get(candidate,0) + 1
 
+    # Getting average of optional grades
     for candidate in result:
-        result[candidate] = result[candidate]/count[candidate]
+        if plaisio.requiredNumber == 0:
+            break
+
+        optionals = 0
+        count = 0
+
+        for lesson in plaisio.get_optional():
+            if lesson in grades and candidate in grades[lesson]:
+                optionals += grades[lesson][candidate]
+                count += 1
+
+        result[candidate] += optionals*plaisio.requiredNumber/count
+
+    # Commented version: if everyone chose their best grades
+    """     
+    for candidate in result:
+        if plaisio.requiredNumber == 0:
+            break
+
+        optionals = []
+
+        for lesson in plaisio.get_optional():
+            if lesson in grades and candidate in grades[lesson]:
+                optionals.append(grades[lesson][candidate])
+
+        optionals.sort()
+        optionals.reverse()
+        result[candidate] += sum(optionals[:plaisio.requiredNumber]) 
+    """
+        
+    for candidate in result:
+        result[candidate] = result[candidate]/plaisio.total_lessons()
     
     return result
 
@@ -77,7 +108,7 @@ def get_ranking(candidates,plaisio):
         if len(lessons[lesson_name].grades) > 0:
             curved_grades[lesson_name] = lessons[lesson_name].curve()
             
-    avg_grades = average_grades(curved_grades)
+    avg_grades = average_grades(curved_grades,plaisio)
 
     # sort by grade
     ranking = sorted(avg_grades.items(),key=lambda x:x[1],reverse=True)
