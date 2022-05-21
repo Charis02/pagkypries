@@ -25,13 +25,15 @@ def average_grades(grades):
     """
 
     result = {}
+    count = {}
 
     for lesson_grades in grades.values():
         for candidate in lesson_grades:
             result[candidate] = result.get(candidate,0) + lesson_grades[candidate]
+            count[candidate] = count.get(candidate,0) + 1
 
     for candidate in result:
-        result[candidate] = result[candidate]
+        result[candidate] = result[candidate]/count[candidate]
     
     return result
 
