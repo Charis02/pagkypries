@@ -1,4 +1,5 @@
 function createHeader(header){
+    document.getElementById("table").innerHTML = "";
     let row = document.createElement("tr");
     for(let i = 0;i < header.length;i++)
     {
@@ -10,7 +11,6 @@ function createHeader(header){
   }
   
   function constructTable(list,max_cols,classes={}){
-  
     for(let i = 0;i < list.length;i++)
     {
       let row = document.createElement("tr");

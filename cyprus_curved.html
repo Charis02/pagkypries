@@ -51,7 +51,7 @@
     <script src="javascript/dropdown.js" async defer></script>
     <script src="javascript/page_transition.js" defer></script>
 
-    <title>Αναγωγή | Παγκύπριες Εξετάσεις </title>
+    <title> Εκτίμιση Αναγωγής ΑΑΕΙ Κύπρου | Παγκύπριες Εξετάσεις </title>
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -90,6 +90,11 @@
         <div id="filter-input">
             Εισάγετε τον αριθμό υποψηφίου στο πλαίσιο: 
             <input class="numbersOnly" id="filter-input-text" placeholder="Αναζήτηση...">
+        </div>
+        
+        <div id="plaisio-filter">
+            Επιλέξτε πλάισιο πρόσβασης:
+            <select id="plaisio-selector" onchange="initialize_table()"></select>
         </div>
 
         <div id="table">
