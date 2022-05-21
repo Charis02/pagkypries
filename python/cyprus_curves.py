@@ -31,7 +31,7 @@ def average_grades(grades):
             result[candidate] = result.get(candidate,0) + lesson_grades[candidate]
 
     for candidate in result:
-        result[candidate] = result[candidate]/len(grades)
+        result[candidate] = result[candidate]
     
     return result
 
@@ -46,12 +46,17 @@ def normalize(ranking):
     grades = [grade for code,grade in ranking]
     x = [np.percentile(grades,perc) for perc in p]  # grade corresponding to percentile
 
+    print(x)
+    print(len(grades))
+    print()
+
     result = {}
 
     for code,grade in ranking:
         for i in range(len(A)-1):
             if grade <= x[i+1]:
                     result[code] = A[i] + (A[i+1] - A[i])*(grade - x[i])/(x[i+1] - x[i])
+                    break
 
     return result
 
@@ -65,7 +70,7 @@ def get_ranking(candidates,plaisio):
     lessons = initialize_lessons(candidates,plaisio)
 
     # curve grades for each lesson
-    curved_grades = {}
+    curved_grades = {}  # maps lesson name to dictionary of grades-candidates
     for lesson_name in lessons:
         if len(lessons[lesson_name].grades) > 0:
             curved_grades[lesson_name] = lessons[lesson_name].curve()
@@ -109,16 +114,29 @@ def parse_candidates(filename):
     return result
 
 
+def parse_plaisia(filename):
+    """
+    Parses a JSON file with plaisia.
+    """
+    result = []
+
+    with open(filename) as fin:
+        plaisia_data = json.load(fin)
+
+        for code in plaisia_data:
+            pl  = plaisia_data[code]
+            result.append(Plaisio(pl["mandatory"],pl["optional"],pl["optionalNo"],code))
+
+    return result
+
+
+
 candidates = parse_candidates("./data/raw_data.json")
+plaisia = parse_plaisia("./data/plaisia_cyprus.json")
 
-with open("./data/plaisia_cyprus.json") as plaisia_fin:
-    plaisia_data = json.load(plaisia_fin)
+for plaisio in plaisia:
+    print(plaisio)
+    ranking = get_ranking(candidates,plaisio)
 
-    for code in plaisia_data:
-        pl  = plaisia_data[code]
-        plaisio = Plaisio(pl["mandatory"],pl["optional"],pl["optionalNo"],code)
-
-        ranking = get_ranking(candidates,plaisio)
-
-        with open("./data/curves/plaisio_" + plaisio.id + ".json","w") as fout:
-            json.dump(ranking,fout,ensure_ascii=False,indent=2)
+    with open("./data/curves/plaisio_" + plaisio.id + ".json","w") as fout:
+        json.dump(ranking,fout,ensure_ascii=False,indent=2)
