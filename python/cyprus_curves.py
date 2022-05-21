@@ -163,9 +163,13 @@ def parse_plaisia(filename):
 candidates = parse_candidates("./data/raw_data.json")
 plaisia = parse_plaisia("./data/plaisia_cyprus.json")
 
+all_rankings = {}
+
 for plaisio in plaisia:
     print(plaisio)
     ranking = get_ranking(candidates,plaisio)
 
-    with open("./data/curves/plaisio_" + plaisio.id + ".json","w") as fout:
-        json.dump(ranking,fout,ensure_ascii=False,indent=2)
+    all_rankings[plaisio.id] = ranking
+
+with open("./data/plaisia_data.json","w") as fout:
+    json.dump(all_rankings,fout,ensure_ascii=False,indent=2)
