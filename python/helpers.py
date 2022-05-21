@@ -1,3 +1,5 @@
+import math
+
 class Plaisio:
     """
     Represents a 'plaisio' of lessons. It is
@@ -22,20 +24,24 @@ class Plaisio:
         """
         return len(set(self.mandatory).intersection(classes)) == len(self.mandatory) and len(set(self.optional).intersection(classes)) >= self.requiredNumber
 
+    def get_lessons(self):
+        """
+        Returns a list of all the lessons that are
+        in this plaisio.
+        """
+        return self.mandatory + self.optional
+
 class Candidate:
     """
     Represents a candidate. It is characterized
-    by an id, a list of classes, a list of plaisia that
-    the candidate's classes satisfty,and a dictionary 
-    of grades for each class.
+    by an id, and a dictionary of grades for each class.
+
+    The plaisia are set by the set_applicable_plaisia method.
     """
 
-    def __init__(self,id,classes,grades):
-        self.classes = classes
+    def __init__(self,id,grades):
         self.id = id
         self.grades = grades
-        self.plaisia = []
-        self.plaisia_grades = {}
 
     def __str__(self):
         return "Υποψήφιος {}".format(self.id)
@@ -47,19 +53,81 @@ class Candidate:
         """
         applicable = []
         for plaisio in plaisia:
-            if plaisio.satisfy(self.classes):
+            if plaisio.satisfy(self.grades.keys()):
                 applicable.append(plaisio)
         return applicable
 
-    def set_applicable_plaisia(self,plaisia):
-        """
-        Given a list of plaisia, sets the plaisia
-        that the candidate's classes satisfy.
-        """
-        self.plaisia = self.find_applicable_plaisia(plaisia)
+class Lesson:
+    """
+    Represents a lesson. It is characterized by
+    a name and a dictionary of grades for each candidate.
 
-dummy_plaisio = Plaisio(["Μαθηματικά","Φυσική"],["Χημεία","Βιολογία"],1,32)
-print(dummy_plaisio)
+    The calculation of the average grade is done by the
+    get_average_grade method, and the calculation of the
+    standard deviation is done by the get_standard_deviation
+    method.
 
-dummy_candidate = Candidate(1,["Μαθηματικά","Φυσική","Χημεία","Βιολογία"],{})
-print(dummy_candidate)
+    The method curve is used to calculate the grade of
+    each candidate in this lesson.
+    """
+
+    def __init__(self,name,grades):
+        self.name = name
+        self.grades = grades
+
+    def __str__(self):
+        return self.name
+
+    def add_grade(self,cand,grade):
+        """
+        Adds a grade to the lesson.
+        """
+        self.grades[cand] = grade
+
+    def f(self,x):
+        """
+        Processes the grade of a candidate, as described
+        in the paper.
+        """
+        try:
+            return math.log10(x/(201-x))
+        except:
+            print("AAA",x)
+
+    def get_average_grade(self):
+        """
+        Returns the average grade for this lesson, after
+        applying transformation f on each grade.
+        """
+        temp_grades = [self.f(self.grades[cand]) for cand in self.grades]
+        return sum(temp_grades)/len(temp_grades)
+
+    def get_standard_deviation(self):
+        """
+        Returns the standard deviation for this lesson, after
+        applying transformation f on each grade.
+        """
+        temp_grades = [self.f(self.grades[cand]) for cand in self.grades]
+        avg = sum(temp_grades)/len(temp_grades)
+        return math.sqrt(sum([(x-avg)**2 for x in temp_grades])/len(temp_grades))
+
+    def curve(self):
+        """
+        Returns a dictionary of curved grades for each candidate.
+        """
+        avg = self.get_average_grade()
+        std = self.get_standard_deviation()
+
+        result = {}
+        for cand in self.grades:
+            result[cand] = 10+3*(self.f(self.grades[cand]) - avg)/std
+
+        return result
+
+    def get_candidates(self):
+        """
+        Returns a list of all the candidates that have
+        a grade for this lesson.
+        """
+        return list(self.grades.keys())
+        
