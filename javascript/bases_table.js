@@ -1,4 +1,12 @@
-
+function sortFunc(a,b){
+    if(a[1] < b[1]){
+      return 1;
+    }
+    else if(a[1] > b[1]){
+      return -1;
+    }
+    return 0;
+}
 
 fetch("data/bases_data.json")
 .then(response => {
@@ -16,6 +24,10 @@ fetch("data/bases_data.json")
         rows.push(row);
     }
 
+    rows.sort(sortFunc);
+
     createHeader(header);
     constructTable(rows,header.length);
+    
+    $("#table td.col0").css("text-align","left");
 });
