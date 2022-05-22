@@ -23,6 +23,8 @@ function createHeader(header){
       for(let j = 0;j < col_length;j++)
       {
         let col = document.createElement("td");
+        col.classList.add("col"+j);
+
         col.innerHTML = list[i][j];
         row.appendChild(col);
       }
@@ -30,6 +32,7 @@ function createHeader(header){
       for(let j = col_length;j < max_cols;j++)
       {
         let col = document.createElement("td");
+        col.classList.add("col"+j);
         row.appendChild(col);
       }
   
