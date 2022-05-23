@@ -1,13 +1,11 @@
 import json
 
-from python.cyprus_curves import MIN_YEAR
-
 MIN_YEAR = 2019
 MAX_YEAR = 2022
 
 
 for year in range(MIN_YEAR,MAX_YEAR+1):
-    with open('./data/' + year + '/raw_data.json', 'r') as f:
+    with open('./data/' + str(year) + '/raw_data.json', 'r') as f:
         data = json.load(f)
 
         result = {}
@@ -32,6 +30,6 @@ for year in range(MIN_YEAR,MAX_YEAR+1):
                 result[lesson_name][code] = lesson_grade
                 
 
-        with open('./data/' + year + '/lessons_data.json', 'w') as fout:
+        with open('./data/' + str(year) + '/lessons_data.json', 'w') as fout:
             json.dump(result, fout,ensure_ascii=False,indent=2)
 

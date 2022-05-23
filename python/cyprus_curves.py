@@ -2,7 +2,6 @@ from math import *
 import json
 import numpy as np
 from helpers import *
-from python.get_bases import MAX_YEAR, MIN_YEAR
 
 def initialize_lessons(candidates,plaisio):
     lessons = {}
@@ -130,12 +129,12 @@ def parse_candidates(filename):
                 if lesson == "code":    # Skip the code
                     continue
 
-                if candidate[lesson] == "" or "ΑΠΟΥΣΙΑ" in candidate[lesson]:   # Skip empty grades
+                if candidate[lesson] == "" or "ΑΠΟΥΣΙΑ" in candidate[lesson] or len(candidate[lesson].split(": ")) == 1:   # Skip empty grades
                     continue
 
                 lesson_name = candidate[lesson].split(":")[0]  # Get the lesson name
                 lesson_grade = candidate[lesson].split(": ")[1] # Get the grade
-
+                
                 if float(lesson_grade) > 0: # skip zero grades
                     grades[lesson_name] = float(lesson_grade) *10  # Add the grade to the dictionary
 
@@ -163,7 +162,7 @@ MIN_YEAR = 2019
 MAX_YEAR = 2022
 
 for year in range(MIN_YEAR,MAX_YEAR+1):
-    candidates = parse_candidates("./data/" + year + "/raw_data.json")
+    candidates = parse_candidates("./data/" + str(year) + "/raw_data.json")
     plaisia = parse_plaisia("./data/plaisia_cyprus.json")
 
     all_rankings = {}
@@ -174,5 +173,5 @@ for year in range(MIN_YEAR,MAX_YEAR+1):
 
         all_rankings[plaisio.id] = ranking
 
-    with open("./data/" + year + "/plaisia_data.json","w") as fout:
+    with open("./data/" + str(year) + "/plaisia_data.json","w") as fout:
         json.dump(all_rankings,fout,ensure_ascii=False,indent=2)
