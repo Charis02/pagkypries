@@ -75,16 +75,18 @@ function createSelect(lessons_names,lesson_codes) {
     }
 }
 
-getLessonsData().then(function(data){
-    let header = ["Κωδικός Υποψηφίου","Κατάταξη","Βαθμολογία"];
-    let rows = data.slice(1);
+function rank_by_lesson(){
+    getLessonsData().then(function(data){
+        let header = ["Κωδικός Υποψηφίου","Κατάταξη","Βαθμολογία"];
+        let rows = data.slice(1);
 
-    let [table,classes,lesson_names,lesson_codes] = prepareData(rows);
-        
-    createSelect(lesson_names,lesson_codes);
-    createHeader(header);
-    constructTable(table,header.length,classes);
+        let [table,classes,lesson_names,lesson_codes] = prepareData(rows);
+            
+        createSelect(lesson_names,lesson_codes);
+        createHeader(header);
+        constructTable(table,header.length,classes);
 
-    change_lesson();
-});
+        change_lesson();
+    });
+}
   

@@ -49,10 +49,12 @@ function get_means(data){
   return result;
 }
 
-getRawData().then(function(data){
-  let header = ["Κωδικός Υποψηφίου","Κατάταξη","Μέσος Όρος"];
-  let rows = data.slice(1);
-  let processed_rows = get_means(rows);
-  createHeader(header);
-  constructTable(processed_rows,header.length);
-});
+function mean(){
+  getRawData().then(function(data){
+    let header = ["Κωδικός Υποψηφίου","Κατάταξη","Μέσος Όρος"];
+    let rows = data.slice(1);
+    let processed_rows = get_means(rows);
+    createHeader(header);
+    constructTable(processed_rows,header.length);
+  });
+}

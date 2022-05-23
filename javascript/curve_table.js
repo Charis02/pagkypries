@@ -37,21 +37,23 @@ function createSelect(plaisio_names) {
     }
 }
 
-async function initialize_table(firstTime=false)
-{
-    fetch("data/plaisia_data.json")
-    .then(response => {
-        return response.json();
-    }).then(function(data){
-        if(firstTime)
-            createSelect(Object.keys(data));
+function cyprus_curved(){
+    async function initialize_table(firstTime=false)
+    {
+        let year = localStorage.getItem('chosen_year');
+        fetch("data/" + year + "/plaisia_data.json")
+        .then(response => {
+            return response.json();
+        }).then(function(data){
+            if(firstTime)
+                createSelect(Object.keys(data));
 
-        let plaisio = $("#plaisio-selector").val();
-        rows = process_data(data[plaisio]);
-        
-        createHeader(["Κωδικός Υποψηφίου","Κατάταξη","Βαθμολογία"]);
-        constructTable(rows,3);
-    });
+            let plaisio = $("#plaisio-selector").val();
+            rows = process_data(data[plaisio]);
+            
+            createHeader(["Κωδικός Υποψηφίου","Κατάταξη","Βαθμολογία"]);
+            constructTable(rows,3);
+        });
+    }
+    initialize_table(true);
 }
-
-initialize_table(true);
