@@ -10,7 +10,10 @@ function createHeader(header){
     document.getElementById("table").appendChild(row);
   }
   
-  function constructTable(list,max_cols,classes={}){
+  function constructTable(list,max_cols,classes={})
+  {
+    let table = document.getElementById("table");
+    table.getElementsByTagName("tr");
     for(let i = 0;i < list.length;i++)
     {
       let row = document.createElement("tr");
@@ -36,7 +39,7 @@ function createHeader(header){
         row.appendChild(col);
       }
   
-      document.getElementById("table").appendChild(row);
+      table.appendChild(row);
     }
 }
 

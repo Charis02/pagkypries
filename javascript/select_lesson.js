@@ -1,63 +1,17 @@
-function change_lesson() 
-{
-    let table = $("#table");
-    let rows = table.find("tr");
-    let code = "lesson-"+$("#lesson-selector").val();
-
-    // set input valute to empty
-    $("#filter-input-text").val("");
-
-    for (let i = 1;i < rows.length;i++)
-    {
-        let row = rows[i];
-
-        if(!row.classList.contains(code))
-        {
-            row.style.display = "none";
-        }
-        else
-        {
-            row.style.display = "table-row";
-        }
-    }
-}
-
 $(document).ready(function(){
     let inp = $("#filter-input-text");
 
     inp.keyup(function(e){
-        let table = $("#table");
-        let rows = table.find("tr");
         let val = inp.val().toString();
-        let lesson_code = "lesson-"+$("#lesson-selector").val();
         
         if(val.length > 0)
         {
-            for (let i = 1;i < rows.length;i++)
-            {
-                let row = rows[i];
-                let cells = row.children;
-                let code = cells[0].innerHTML.toString();
-
-                if(!code.startsWith(val) || !row.classList.contains(lesson_code))
-                {
-                    row.style.display = "none";
-                }
-                else
-                {
-                    row.style.display = "table-row";
-                }
-            }
+            $("#table tr").hide();
+            $("#table tr:contains('"+val+"')").show();
         }
         else 
         {
-            for(let i =1;i < rows.length;i++)
-            {
-                if(rows[i].classList.contains(lesson_code))
-                    rows[i].style.display = "table-row";
-                else
-                    rows[i].style.display = "none";
-            }
+            $("#table tr").show();
         }
     });
 });
