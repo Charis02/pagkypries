@@ -33,7 +33,8 @@ function getLessonsJSON(json)
 
 async function getLessonsData()
 {
-    let data = await fetch("data/lessons_data.json")
+    let year = localStorage.getItem('chosen_year');
+    let data = await fetch("data/" + year + "/lessons_data.json")
         .then(response => {
             return response.json();
         })

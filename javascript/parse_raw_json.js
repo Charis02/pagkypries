@@ -34,7 +34,8 @@ function getRawJSON(data)
 
 async function getRawData()
 {
-    let data = await fetch("data/raw_data.json")
+    let year = localStorage.getItem('chosen_year');
+    let data = await fetch("data/" + year + "/raw_data.json")
         .then(response => {
             return response.json();
         })
