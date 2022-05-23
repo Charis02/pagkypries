@@ -2,6 +2,7 @@ from math import *
 import json
 import numpy as np
 from helpers import *
+from python.get_bases import MAX_YEAR, MIN_YEAR
 
 def initialize_lessons(candidates,plaisio):
     lessons = {}
@@ -158,18 +159,20 @@ def parse_plaisia(filename):
 
     return result
 
+MIN_YEAR = 2019
+MAX_YEAR = 2022
 
+for year in range(MIN_YEAR,MAX_YEAR+1):
+    candidates = parse_candidates("./data/" + year + "/raw_data.json")
+    plaisia = parse_plaisia("./data/plaisia_cyprus.json")
 
-candidates = parse_candidates("./data/raw_data.json")
-plaisia = parse_plaisia("./data/plaisia_cyprus.json")
+    all_rankings = {}
 
-all_rankings = {}
+    for plaisio in plaisia:
+        print(plaisio)
+        ranking = get_ranking(candidates,plaisio)
 
-for plaisio in plaisia:
-    print(plaisio)
-    ranking = get_ranking(candidates,plaisio)
+        all_rankings[plaisio.id] = ranking
 
-    all_rankings[plaisio.id] = ranking
-
-with open("./data/plaisia_data.json","w") as fout:
-    json.dump(all_rankings,fout,ensure_ascii=False,indent=2)
+    with open("./data/" + year + "/plaisia_data.json","w") as fout:
+        json.dump(all_rankings,fout,ensure_ascii=False,indent=2)
