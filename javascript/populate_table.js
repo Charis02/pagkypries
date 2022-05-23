@@ -14,7 +14,7 @@ function createHeader(header){
   function constructTable(list,max_cols,classes={})
   {
     let table = document.getElementById("table");
-    table.getElementsByTagName("tr");
+    
     for(let i = 0;i < list.length;i++)
     {
       let row = document.createElement("tr");
