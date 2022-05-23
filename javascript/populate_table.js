@@ -1,6 +1,7 @@
 function createHeader(header){
     document.getElementById("table").innerHTML = "";
     let row = document.createElement("tr");
+    row.classList.add("header");
     for(let i = 0;i < header.length;i++)
     {
       let col = document.createElement("th");

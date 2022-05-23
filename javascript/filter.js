@@ -2,34 +2,18 @@ $(document).ready(function(){
 
     let inp = $("#filter-input-text");
     inp.keyup(function(e){
-        let table = $("#table");
-        let rows = table.find("tr");
+        let rows = $("#table tr").not(".header");
         let val = inp.val().toString();
         
         if(val.length > 0)
         {
-            for (let i = 1;i < rows.length;i++)
-            {
-                let row = rows[i];
-                let cells = row.children;
-                let code = cells[0].innerHTML.toString();
-
-                if(!code.startsWith(val))
-                {
-                    row.style.display = "none";
-                }
-                else
-                {
-                    row.style.display = "table-row";
-                }
-            }
+            rows.hide();
+            rows.filter(function(){
+                return $(this).find(".col0").text().indexOf(val) > -1;
+            }).show();
         }
-        else {
-            for(let i =1;i < rows.length;i++)
-            {
-                rows[i].style.display = "table-row";
-            }
-        }
+        else
+            rows.show();
     });
 });
 
