@@ -137,6 +137,9 @@ class Lesson:
         avg = self.get_average_grade()
         std = self.get_standard_deviation()
 
+        if std == 0:
+            return {cand:0 for cand in self.grades}
+
         result = {}
         for cand in self.grades:
             result[cand] = 10+3*(self.f(self.grades[cand]) - avg)/std
