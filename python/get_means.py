@@ -31,22 +31,21 @@ for year in range(MIN_YEAR,MAX_YEAR+1):
                 cnt += 1
 
             if cnt == 0:
-                result['Candidates'] . append([code, 0])
+                result['Candidates'] . append({'code':code, 'grade':0})
             else:
-                result['Candidates'] . append([code, score/cnt])
+                result['Candidates'] . append({'code':code, 'grade':score/cnt})
 
-        result['Candidates'].sort(key=lambda x: x[1], reverse=True) # sort by descending grades
+        result['Candidates'].sort(key=lambda x: x['grade'], reverse=True) # sort by descending grades
 
         rank = 0
         last = 21
 
         for i in range(len(result['Candidates'])):
-            if result['Candidates'][i][1] != last:
+            if result['Candidates'][i]['grade'] != last:
                 rank = i + 1
-                last = result['Candidates'][i][1]
+                last = result['Candidates'][i]['grade']
 
-            result['Candidates'][i].append(result['Candidates'][i][1])
-            result['Candidates'][i][1] = rank
+            result['Candidates'][i]['rank'] = rank
 
         with open('./data/' + str(year) + '/means_data.json', 'w') as fout:
             json.dump(result, fout,ensure_ascii=False,indent=2)
