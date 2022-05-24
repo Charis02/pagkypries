@@ -64,16 +64,43 @@ function get_lesson_names(data){
 
 function rank_by_lesson(){
     let year = localStorage.getItem('chosen_year');
+    
     fetch("data/" + year + "/lessons_data.json")
     .then(response => {
             return response.json();
     })
     .then(function(data){
-        let header = ["Κωδικός Υποψηφίου","Κατάταξη","Βαθμολογία"];
-            
+
         createSelect(get_lesson_names(data));
-        createHeader(header);
-        constructTable(change_lesson(data),header.length);
+        let lesson = $( "#lesson-selector" ).val();
+        let table  = $('#table').DataTable();
+        table.clear();
+        console.log(lesson);
+        table.rows.add(data[lesson]).draw();
     });
+
 }
-  
+
+$(document).ready( function () {
+    $('#table').DataTable(
+        {
+            "columns": [
+                { "data": "code" },
+                { "data": "rank" },
+                { "data": "grade" }
+            ],
+            "order": [[ 2, "desc" ]],
+        }
+    );
+} );
+
+
+$('#filter-input-text').on( 'keyup', function () {
+    this.value = this.value.replace(/[^0-9\.]/g,'');
+    let table = $('#table').DataTable();
+
+	table
+		.columns(0)
+		.search(this.value)
+		.draw();
+} );
