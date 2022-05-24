@@ -31,11 +31,11 @@ for year in range(MIN_YEAR,MAX_YEAR+1):
                 cnt += 1
 
             if cnt == 0:
-                result['Candidates'] . append({'code':code, 'grade':0})
+                result['Candidates'] . append({'code':code, 'grade':"0.000"})
             else:
-                result['Candidates'] . append({'code':code, 'grade':score/cnt})
+                result['Candidates'] . append({'code':code, 'grade':"{:0.3f}".format(score/cnt)})
 
-        result['Candidates'].sort(key=lambda x: x['grade'], reverse=True) # sort by descending grades
+        result['Candidates'].sort(key=lambda x: float(x['grade']), reverse=True) # sort by descending grades
 
         rank = 0
         last = 21
