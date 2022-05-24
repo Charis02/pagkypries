@@ -68,3 +68,7 @@ select{
     border-radius: 5px;
     font-size: var(--subtitle-font-size);
 }
+
+.dataTables_filter{
+    display: none;
+}

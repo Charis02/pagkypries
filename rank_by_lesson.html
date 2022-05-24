@@ -34,7 +34,8 @@
 
     <!--- JS --->
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
     <script>
         $(function(){
           $("#header").load("header.html");
@@ -72,9 +73,19 @@
             </div>
 
         </div>
-        <div id="table">
 
-        </div>
+        <table id="table" class="display">
+            <thead>
+                <tr>
+                    <th> Κωδικός Υποψηφίου</th>
+                    <th> Κατάταξη </th>
+                    <th> Βαθμολογία </th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
     </div>
 
 
