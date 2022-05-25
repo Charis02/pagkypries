@@ -12,7 +12,7 @@ function createRowItem(rowData, elements) {
   return row;
 }
 
-function nextHandler(filename, elements) {
+function nextHandler(filename, elements,code = "") {
   return function(pageIndex){
     return fetch(filename)
       .then(response => response.json())
@@ -20,19 +20,31 @@ function nextHandler(filename, elements) {
         let data = jsondata.data;
         let frag = document.createDocumentFragment();
 
-        let itemsPerPage = 8;
+        let itemsPerPage = 250;
+
+        if (code.length != 0) itemsPerPage = 9999;
+
         let totalPages = Math.ceil(data.length / itemsPerPage);
         let offset = pageIndex * itemsPerPage;
 
-        // walk over the movie items for the current page and add them to the fragment
-        for (let i = offset, len = offset + itemsPerPage; i < len; i++) {
+        for (let i = offset, len = Math.min(offset + itemsPerPage,data.length); i < len; i++) {
           let row = data[i];
-          let item = createRowItem(row,elements);
 
-          frag.appendChild(item);
+          if (code.length == 0 || row.code == code){
+            console.log("adding row");
+            frag.appendChild(createRowItem(row, elements));
+          }
         }
 
         let hasNextPage = pageIndex < totalPages - 1;
+        
+        if (frag.children.length == 0) {
+          let row = document.createElement("tr");
+          row.classList.add("row");
+          row.classList.add("invisible");
+          row.innerHTML = "<td colspan='" + elements.length + "'>No results found</td>";
+          frag.appendChild(row);
+        }
 
         return this.append(Array.from(frag.childNodes))
           // indicate that there is a next page to load

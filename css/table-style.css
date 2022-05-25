@@ -22,7 +22,11 @@ td{
     padding: 20px 60px;
     text-align: center;
 
-    border: var(--alternative-color) solid 1px;;
+    border: var(--alternative-color) solid 1px;
+}
+
+.invisible{
+    display: none;
 }
 
 .main-content{
@@ -67,8 +71,4 @@ select{
     border: var(--alternative-color) solid 1px;
     border-radius: 5px;
     font-size: var(--subtitle-font-size);
-}
-
-.dataTables_filter{
-    display: none;
 }

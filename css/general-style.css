@@ -195,3 +195,9 @@ body{
 .copyright{
     padding: 8px;
 }
+
+.small-text{
+    font-weight: 200;
+    font-size: var(--text-font-size);
+    color: var(--primary-color)
+}

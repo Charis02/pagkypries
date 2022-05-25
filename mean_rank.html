@@ -43,6 +43,7 @@
         });
     </script>
     <script src="javascript/mean_table.js" defer></script>
+    <script src="javascript/filter.js" defer></script>
     <script src="javascript/scroll_to_top.js" defer></script>
     <script src="javascript/dropdown.js" async defer></script>
     <script src="javascript/page_transition.js" defer></script>
@@ -61,8 +62,10 @@
     <div class="main-content">
 
         <div id="filter-input">
-            Εισάγετε τον αριθμό υποψηφίου στο πλαίσιο: 
-            <input class="numbersOnly" id="filter-input-text" placeholder="Αναζήτηση...">
+            <div>Εισάγετε τον αριθμό υποψηφίου στο πλαίσιο: <br>
+            <div class="small-text"> (Αφήστε άδειο για να εμφανιστούν όλοι)</div></div>
+            <input class="numbersOnly" id="filter-input-text" placeholder="Αριθμός Υποψηφίου...">
+            <button id="filter-input-button"> Αναζήτηση </button>
         </div>
 
         <table id="table" class="display">
