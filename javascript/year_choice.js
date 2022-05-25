@@ -17,6 +17,8 @@ function set_year(year)
     indicator.style.left = pos;
     indicator.style.width = wid;
 
+    $('#year-label h2').text("Χρονιά: "+ year);
+
     initialize_page();
 }
 
