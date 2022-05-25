@@ -56,6 +56,17 @@ td{
     font-size: var(--subtitle-font-size);
 }
 
+#filter-input button{
+    margin-top: 10px;
+    border: var(--alternative-color) solid 1px;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: var(--subtitle-font-size);
+    background-color: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
+}
+
 .selector-filter{
     display: flex;
     flex-direction: row;
