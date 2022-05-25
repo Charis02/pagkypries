@@ -8,7 +8,7 @@ for year in range(MIN_YEAR,MAX_YEAR+1):
     with open('./data/' + str(year) + '/raw_data.json', 'r') as f:
         data = json.load(f)
 
-        result = {'Candidates':[]}
+        result = {'data':[]}
 
         for candidate in data['Candidates']:
             cand_iter = iter(candidate)
@@ -31,21 +31,21 @@ for year in range(MIN_YEAR,MAX_YEAR+1):
                 cnt += 1
 
             if cnt == 0:
-                result['Candidates'] . append({'code':code, 'grade':"0.000"})
+                result['data'] . append({'code':code, 'grade':"0.000"})
             else:
-                result['Candidates'] . append({'code':code, 'grade':"{:0.3f}".format(score/cnt)})
+                result['data'] . append({'code':code, 'grade':"{:0.3f}".format(score/cnt)})
 
-        result['Candidates'].sort(key=lambda x: float(x['grade']), reverse=True) # sort by descending grades
+        result['data'].sort(key=lambda x: float(x['grade']), reverse=True) # sort by descending grades
 
         rank = 0
         last = 21
 
-        for i in range(len(result['Candidates'])):
-            if result['Candidates'][i]['grade'] != last:
+        for i in range(len(result['data'])):
+            if result['data'][i]['grade'] != last:
                 rank = i + 1
-                last = result['Candidates'][i]['grade']
+                last = result['data'][i]['grade']
 
-            result['Candidates'][i]['rank'] = rank
+            result['data'][i]['rank'] = rank
 
         with open('./data/' + str(year) + '/means_data.json', 'w') as fout:
             json.dump(result, fout,ensure_ascii=False,indent=2)
