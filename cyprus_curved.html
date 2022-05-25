@@ -36,7 +36,8 @@
     <!--- JS --->
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-    
+    <script src="https://unpkg.com/@webcreate/infinite-ajax-scroll@^3.0.0-beta.6/dist/infinite-ajax-scroll.min.js"></script>
+
     <script>
         $(function(){
           $("#header").load("header.html");
@@ -44,8 +45,8 @@
         });
     </script>
     
-    <script src="javascript/populate_table.js" defer></script>
-    <script src="javascript/curve_table.js" defer></script>
+    <script src="javascript/cyprus_curved.js" defer></script>
+    <script src="javascript/data_handler.js" defer></script>
     <script src="javascript/scroll_to_top.js" defer></script>
     <script src="javascript/filter.js" defer></script>
     <script src="javascript/dropdown.js" async defer></script>
@@ -103,7 +104,7 @@
                 <tr>
                     <th> Κωδικός Υποψηφίου</th>
                     <th> Κατάταξη </th>
-                    <th> Μέσος Όρος </th>
+                    <th> Βαθμός με Αναγωγή </th>
                 </tr>
             </thead>
 

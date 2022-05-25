@@ -170,8 +170,13 @@ for year in range(MIN_YEAR,MAX_YEAR+1):
     for plaisio in plaisia:
         print(plaisio)
         ranking = get_ranking(candidates,plaisio)
-
-        all_rankings[plaisio.id] = ranking
+        result = []
+        rank = 1
+        for code in ranking:
+            result.append({"code":code,"rank":rank,"grade":"{:0.3f}".format(ranking[code])})
+            rank += 1
+        
+        all_rankings[plaisio.id] = result
 
     with open("./data/" + str(year) + "/plaisia_data.json","w") as fout:
         json.dump(all_rankings,fout,ensure_ascii=False,indent=2)
