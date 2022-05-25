@@ -12,12 +12,12 @@ function createRowItem(rowData, elements) {
   return row;
 }
 
-function nextHandler(filename, elements) {
+function nextHandler(filename, elements, field) {
   return async function(pageIndex){
     return fetch(filename)
       .then(response => response.json())
       .then((jsondata) => {
-        let data = jsondata.data;
+        let data = jsondata[field];
         let frag = document.createDocumentFragment();
 
         let itemsPerPage = 250;
@@ -40,12 +40,12 @@ function nextHandler(filename, elements) {
   };
 }
 
-async function filterDataHandler(filename,elements,code)
+async function filterDataHandler(filename,elements,field,code)
 {
   return fetch(filename)
   .then(response => response.json())
   .then((jsondata) => {
-    let data = jsondata.data;
+    let data = jsondata[field];
     let table = document.getElementById("table-body");
     let tbody = table.getElementsByTagName("tbody")[0];
     

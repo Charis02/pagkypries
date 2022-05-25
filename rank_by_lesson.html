@@ -35,7 +35,9 @@
     <!--- JS --->
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://unpkg.com/@webcreate/infinite-ajax-scroll@^3.0.0-beta.6/dist/infinite-ajax-scroll.min.js"></script>
+
+    
     <script>
         $(function(){
           $("#header").load("header.html");
@@ -43,11 +45,12 @@
         });
     </script>
     
-    <script src="javascript/populate_table.js" defer></script>
-    <script src="javascript/lessons_table.js" defer></script>
+    <script src="javascript/rank_by_lesson.js" defer></script>
+    <script src="javascript/data_handler.js" defer></script>
     <script src="javascript/scroll_to_top.js" defer></script>
     <script src="javascript/dropdown.js" async defer></script>
     <script src="javascript/page_transition.js" defer></script>
+    <script src="javascript/filter.js" defer></script>
 
     <title>Κατάταξη Ανά Μάθημα | Παγκύπριες Εξετάσεις </title>
 </head>
@@ -63,8 +66,10 @@
 
         <div class="filters">
             <div id="filter-input">
-                Εισάγετε τον αριθμό υποψηφίου στο πλαίσιο: 
-                <input class="numbersOnly" id="filter-input-text" placeholder="Αναζήτηση...">
+                <div>Εισάγετε τον αριθμό υποψηφίου στο πλαίσιο: <br>
+                <div class="small-text"> (Αφήστε άδειο για να εμφανιστούν όλοι)</div></div>
+                <input class="numbersOnly" id="filter-input-text" placeholder="Αριθμός Υποψηφίου...">
+                <button id="filter-input-button"> Αναζήτηση </button>
             </div>
             
             <div id="lesson-filter" class="selector-filter">
@@ -79,11 +84,12 @@
                 <tr>
                     <th> Κωδικός Υποψηφίου</th>
                     <th> Κατάταξη </th>
-                    <th> Βαθμολογία </th>
+                    <th> Μέσος Όρος </th>
                 </tr>
             </thead>
-            <tbody>
-                
+
+            <tbody id="table-body">
+
             </tbody>
         </table>
     </div>
