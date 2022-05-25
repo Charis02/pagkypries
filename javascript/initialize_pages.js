@@ -7,6 +7,7 @@ function initialize_page()
             mean();
             break;
         case "minmax":
+            console.log("here!");
             minmax();
             break;
         case "rank_by_lesson":

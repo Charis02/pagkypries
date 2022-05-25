@@ -18,6 +18,7 @@ function nextHandler(filename, elements, field) {
       .then(response => response.json())
       .then((jsondata) => {
         let data = jsondata[field];
+        console.log(data);
         let frag = document.createDocumentFragment();
 
         let itemsPerPage = 250;

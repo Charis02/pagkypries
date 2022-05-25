@@ -23,7 +23,7 @@ for year in range(MIN_YEAR,MAX_YEAR+1):
                 max_grade = max(max_grade, grade)
                 sum += grade
             
-            result['data'].append({'lesson':lesson,'min':min_grade,'max':max_grade,'avg':sum/len(data[lesson])})
+            result['data'].append({'lesson':lesson,'min':"{:0.3f}".format(min_grade),'max':"{:0.3f}".format(max_grade),'avg':"{:0.3f}".format(sum/len(data[lesson]))})
 
     with open('./data/' + str(year) + '/minmax_data.json', 'w') as f:
         json.dump(result, f, indent=4,ensure_ascii=False)
