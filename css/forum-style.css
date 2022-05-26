@@ -9,10 +9,41 @@ body{
     display: flex;
 }
 
+button{
+    margin-top: 10px;
+    border: var(--alternative-color) solid 1px;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: var(--subtitle-font-size);
+    background-color: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
+}
+
+#forum-post-form{
+    width: 100%;
+    margin: 0 10px;
+    padding: 0;
+}
+
+input, textarea{
+    resize:none;
+    margin-top: 10px;
+    width: 300px;
+    height: 20px;
+    border: var(--alternative-color) solid 1px;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: var(--text-font-size);
+}
+
 #left-divider{
-    width: 35%;
+    width: 42%;
     padding-top: 10px;
     border-right: 2px solid var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #forum-posts-overflow{
@@ -23,21 +54,26 @@ body{
 
 .post-card{
     cursor: pointer;
-    margin: 10px;
+    margin: 0 10px;
     padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #e6e6e6;
+    border-bottom: 0.8px solid var(--secondary-color);
+    width: 32vw;
+}
 
+.post-card-title{
+    font-size: var(--subtitle-font-size);
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 #right-divider{
     padding-top: 10px;
-    width: 65%;
+    width: 58%;
 }
 
 
 #right-divider h3{
-    font-size: var(--title-font-size);
+    font-size: var(--huge-font-size);
     font-weight: bold;
     margin-bottom: 2px;
     text-align: center;
