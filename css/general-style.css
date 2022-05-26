@@ -200,7 +200,7 @@ body{
 }
 
 #footer{
-    margin-top: auto;   /* make footer be at the bottom of the page */
+    margin:0;
 
     background-color: var(--alternative-color);
     width: 100%;

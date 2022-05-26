@@ -37,7 +37,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="css/general-style.css">
+    <link rel="stylesheet" href="css/forum-style.css">
+
     <title>Σχετικά με | Παγκύπριες Εξετάσεις </title>
 </head>
 <body>
@@ -50,35 +53,40 @@
     <div id="header"> </div>
 
     <div id="main-content">
-        <div id="forum-post-form">
-            Δημοσιεύστε ένα σχόλιο στο forum
-            <div>
-                Τίτλος:
-                <input type="text" id="forum-post-title" name="forum-post-title" placeholder="Τίτλος" required>
-            </div>
+        <div id="left-divider">
+            <div id="forum-post-form">
+                Δημοσιεύστε ένα σχόλιο στο forum
+                <div>
+                    Τίτλος:
+                    <input type="text" id="forum-post-title" name="forum-post-title" placeholder="Τίτλος" required>
+                </div>
 
-            <div>
-                Σχόλιο:
-                <textarea id="forum-post-body" name="forum-post-content" placeholder="Σχόλιο" required></textarea>
-            </div>
+                <div>
+                    Σχόλιο:
+                    <textarea id="forum-post-body" name="forum-post-content" placeholder="Σχόλιο" required></textarea>
+                </div>
 
-            <div>
-                <button id="forum-post-submit" type="submit">Υποβολή</button>
+                <div>
+                    <button id="forum-post-submit" type="submit">Υποβολή</button>
+                </div>
+            </div>
+            
+            <div id="forum-posts">
+                <div id="forum-posts-overflow">
+
+                </div>
             </div>
         </div>
-
-        <table id="table">
-            <thead>
-                <tr>
-                    <th>Τίτλος</th>
-                    <th>Σχόλιο</th>
-                    <th>Ημερομηνία</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-
-            </tbody>
-        </table>
+        <div id="right-divider">
+            <div>
+                <div id="chosen-post-title">
+                    <h3>Τίτλος</h3>
+                </div>
+                <div id="chosen-post-body">
+                    Σχόλιο
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="footer"></div>
