@@ -2,18 +2,21 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
 import { getFirestore,collection, addDoc,getDoc,doc,getDocs,query,orderBy,Timestamp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore.js";
 
+class Comment{
+    constructor(comment,user,date=Timestamp.now().toDate()){
+        this.comment = comment;
+        this.user = user;
+        this.dateCreated = date;
+    }
+}
 
 class Post{
-    constructor (title,body,user,date=null)
+    constructor (title,body,user,date=date=Timestamp.now().toDate())
     {
         this.title = title;
         this.body = body;
         this.user = user;
-
-        if (date == null)
-            this.dateCreated = Timestamp.now().toDate();
-        else
-            this.dateCreated = date;
+        this.dateCreated = date;
     }
 
     toString()
@@ -37,14 +40,28 @@ const postConverter = {
     }
 };
 
+const commentConverter = {
+    toFirestore: (comment) => {
+        return {
+            comment: comment.comment,
+            user: comment.user,
+            dateCreated: Timestamp.fromDate(comment.dateCreated)
+        };
+    },
+    fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return new Comment(data.comment, data.user, data.dateCreated.toDate());
+    }
+};
+
 const firebaseConfig = {
-apiKey: "AIzaSyDVCPmNRgwARnbmvbBJcyCzzT5o_qqKb_o",
-authDomain: "pagkypries-forum.firebaseapp.com",
-projectId: "pagkypries-forum",
-storageBucket: "pagkypries-forum.appspot.com",
-messagingSenderId: "960261449242",
-appId: "1:960261449242:web:e2e417db6e1f50863c93a3",
-measurementId: "G-S38B9HK551"
+    apiKey: "AIzaSyDVCPmNRgwARnbmvbBJcyCzzT5o_qqKb_o",
+    authDomain: "pagkypries-forum.firebaseapp.com",
+    projectId: "pagkypries-forum",
+    storageBucket: "pagkypries-forum.appspot.com",
+    messagingSenderId: "960261449242",
+    appId: "1:960261449242:web:e2e417db6e1f50863c93a3",
+    measurementId: "G-S38B9HK551"
 };
 
 // Initialize Firebase
@@ -87,8 +104,46 @@ async function refreshPosts(){
         $("#forum-posts-overflow").append(createPostElement(post,doc.id));
     });
 
-    console.log($('.post-card'));
     $('.post-card')[0].click(getPost);
+}
+
+function showPost(title,body,user,dateCreated)
+{
+    $('#chosen-post-title').html('<h3>'+title+'</h3>');
+    $('#chosen-post-body').html(body);
+    $('#forum-post-view').show();
+    $('#forum-post-form').hide();
+}
+
+function createCommentElement(comment)
+{
+    let row = document.createElement("div");
+    row.classList.add("comment-card");
+
+    let col = document.createElement("div");
+    col.classList.add("comment-card-comment");
+    col.innerHTML = comment.comment;
+
+    let col2 = document.createElement("div");
+    col2.classList.add("comment-card-date");
+    col2.innerHTML = comment.dateCreated;
+
+    row.appendChild(col);
+    row.appendChild(col2);
+
+    return row;
+}
+
+async function getComments(comments){
+    $('#forum-comments-overflow').empty();
+
+    const q = query(comments, orderBy("dateCreated", "desc"));
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+        let comment = commentConverter.fromFirestore(doc);
+        $("#forum-comments-overflow").append(createCommentElement(comment));
+    });
 }
 
 async function getPost(){
@@ -100,19 +155,17 @@ async function getPost(){
     let post = postConverter.fromFirestore(docSnap);
     let title = post.title;
     let body = post.body;
+    let user = post.user;
+    let dateCreated = post.dateCreated;
+    let comments = collection(db, "posts/"+id+"/comments");
 
-
-    $('#chosen-post-title').html('<h3>'+title+'</h3>');
-    $('#chosen-post-body').html(body);
-    $('#chosen-post-title').show();
-    $('#chosen-post-body').show();
-    $('#forum-post-form').hide();
+    showPost(title,body,user,dateCreated);
+    getComments(comments);
 }
 
 $('#forum-post-button').click(() => {
     $('#forum-post-form').show();
-    $('#chosen-post-title').hide();
-    $('#chosen-post-body').hide();
+    $('#forum-post-view').hide();
 });
 
 $(document).ready(function(){

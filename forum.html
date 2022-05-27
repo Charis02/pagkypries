@@ -59,28 +59,37 @@
             </div>
             
             <div id="forum-posts">
-                <div id="forum-posts-overflow">
-
-                </div>
+                <div id="forum-posts-overflow"> </div>
             </div>
         </div>
         <div id="right-divider">
-            <div>
-                <div id="chosen-post-title">
-                    <h3>Τίτλος</h3>
+            <div id="forum-post-view">
+                <div id="chosen-post-title"> </div>
+                <div id="chosen-post-body"> </div>
+
+                <h4> Σχόλια </h4>
+                <div id="forum-comment-form">
+                    
                 </div>
-                <div id="chosen-post-body">
-                    Σχόλιο
-                </div>
+                <div id="forum-comments-overflow"> </div>
             </div>
 
             <div id="forum-post-form">
-                <div>
+                <h3> Νέα Δημοσίευση</h3>
+
+                <div class="post-field">
+                    <div class="label">Τίτλος: </div>
                     <input type="text" id="forum-post-title" name="forum-post-title" placeholder="Τίτλος" required>
                 </div>
 
-                <div>
+                <div class="post-field">
+                    <div class="label">Κύριο Μέρος:</div>
                     <textarea id="forum-post-body" name="forum-post-content" placeholder="Σχόλιο" required></textarea>
+                </div>
+
+                <div class="post-field">
+                    <div class="label">Όνομα:</div>
+                    <input type="text" id="forum-post-name" name="forum-post-name" placeholder="Όνομα" required>
                 </div>
 
                 <div>

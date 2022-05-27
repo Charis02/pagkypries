@@ -27,14 +27,16 @@ button{
 }
 
 input, textarea{
-    resize:none;
     margin-top: 10px;
-    width: 300px;
-    height: 20px;
+    width: 80%;
     border: var(--alternative-color) solid 1px;
     border-radius: 5px;
     padding: 10px;
     font-size: var(--text-font-size);
+}
+
+textarea{
+    height: 200px;
 }
 
 #left-divider{
@@ -66,8 +68,13 @@ input, textarea{
     margin-bottom: 5px;
 }
 
+#forum-post-button{
+    margin-bottom: 12px;
+}
+
 #right-divider{
-    padding-top: 10px;
+    padding-top: 20px;
+    padding-left:24px;
     width: 55%;
 }
 
@@ -75,7 +82,7 @@ input, textarea{
 #right-divider h3{
     font-size: var(--huge-font-size);
     font-weight: bold;
-    margin-bottom: 2px;
+    margin-bottom: 6px;
     text-align: center;
     text-decoration: underline;
     text-decoration-color: var(--secondary-color);
@@ -90,4 +97,17 @@ input, textarea{
     border: 1px solid #e6e6e6;
     padding: 10px;
     border-radius: 5px;
+}
+
+.post-field{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.label{
+    font-size: var(--subtitle-font-size);
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-left: 4px;
 }
