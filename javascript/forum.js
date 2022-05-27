@@ -56,7 +56,6 @@ const db = getFirestore(app);
 
 function createPostElement(post,id)
 {
-    console.log("Here!");
     let row = document.createElement("div");
     row.classList.add("post-card");
     row.id = id;
@@ -78,6 +77,7 @@ function createPostElement(post,id)
 
 async function refreshPosts(){
     $('#forum-posts-overflow').empty();
+    $('#forum-post-form').hide();
 
     const q = query(collection(db, "posts"), orderBy("dateCreated", "desc"));
     const querySnapshot = await getDocs(q);
@@ -86,6 +86,9 @@ async function refreshPosts(){
         let post = postConverter.fromFirestore(doc);
         $("#forum-posts-overflow").append(createPostElement(post,doc.id));
     });
+
+    console.log($('.post-card'));
+    $('.post-card')[0].click(getPost);
 }
 
 async function getPost(){
@@ -98,9 +101,19 @@ async function getPost(){
     let title = post.title;
     let body = post.body;
 
+
     $('#chosen-post-title').html('<h3>'+title+'</h3>');
     $('#chosen-post-body').html(body);
+    $('#chosen-post-title').show();
+    $('#chosen-post-body').show();
+    $('#forum-post-form').hide();
 }
+
+$('#forum-post-button').click(() => {
+    $('#forum-post-form').show();
+    $('#chosen-post-title').hide();
+    $('#chosen-post-body').hide();
+});
 
 $(document).ready(function(){
     refreshPosts();

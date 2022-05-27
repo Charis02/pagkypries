@@ -38,7 +38,7 @@ input, textarea{
 }
 
 #left-divider{
-    width: 42%;
+    width: 45%;
     padding-top: 10px;
     border-right: 2px solid var(--secondary-color);
     display: flex;
@@ -68,7 +68,7 @@ input, textarea{
 
 #right-divider{
     padding-top: 10px;
-    width: 58%;
+    width: 55%;
 }
 
 
