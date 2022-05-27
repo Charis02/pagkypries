@@ -40,6 +40,7 @@
 
     <link rel="stylesheet" href="css/general-style.css">
     <link rel="stylesheet" href="css/forum-style.css">
+    <link rel="stylesheet" href="css/mobile-style.css">
 
     <title>Σχετικά με | Παγκύπριες Εξετάσεις </title>
 </head>
@@ -67,9 +68,26 @@
                 <div id="chosen-post-title"> </div>
                 <div id="chosen-post-body"> </div>
 
-                <h4> Σχόλια </h4>
+                <div id="comment-button-line">
+                    <h4> Σχόλια </h4>
+                    <button id="comment-button"> Σχολιάστε! </button>
+                </div>
                 <div id="forum-comment-form">
+                    <div class="comment-field">
+                        <div class="comment-label">Σχόλιο: </div>
+                        <textarea id="forum-comment-comment" name="forum-comment-content" placeholder="..." required></textarea>
+                    </div>
                     
+                    <div class="comment-field">
+                        <div class="comment-label">Όνομα:</div>
+                        <input type="text" id="forum-comment-user" name="forum-comment-user" placeholder="Όνομα" required>
+                    </div>
+
+
+                    <div id="comment-submit-buttons">
+                        <button id="forum-comment-submit" type="submit">Υποβολή</button>
+                        <button id="forum-comment-cancel" type="reset">Ακύρωση</button>
+                    </div>
                 </div>
                 <div id="forum-comments-overflow"> </div>
             </div>
@@ -84,12 +102,12 @@
 
                 <div class="post-field">
                     <div class="label">Κύριο Μέρος:</div>
-                    <textarea id="forum-post-body" name="forum-post-content" placeholder="Σχόλιο" required></textarea>
+                    <textarea id="forum-post-body" name="forum-post-content" placeholder="..." required></textarea>
                 </div>
 
                 <div class="post-field">
                     <div class="label">Όνομα:</div>
-                    <input type="text" id="forum-post-name" name="forum-post-name" placeholder="Όνομα" required>
+                    <input type="text" id="forum-post-user" name="forum-post-user" placeholder="Τίτλος" required>
                 </div>
 
                 <div>

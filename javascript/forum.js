@@ -11,12 +11,13 @@ class Comment{
 }
 
 class Post{
-    constructor (title,body,user,date=date=Timestamp.now().toDate())
+    constructor (title,body,user,date=Timestamp.now().toDate())
     {
         this.title = title;
         this.body = body;
         this.user = user;
         this.dateCreated = date;
+        this.latestChange = date;
     }
 
     toString()
@@ -31,12 +32,13 @@ const postConverter = {
             title: post.title,
             body: post.body,
             user: post.user,
-            dateCreated: Timestamp.fromDate(post.dateCreated)
+            dateCreated: Timestamp.fromDate(post.dateCreated),
+            latestChange: Timestamp.fromDate(post.latestChange)
             };
     },
     fromFirestore: (snapshot, options) => {
         const data = snapshot.data(options);
-        return new Post(data.title, data.body, data.user, data.dateCreated.toDate());
+        return new Post(data.title, data.body, data.user, data.dateCreated.toDate(), data.latestChange.toDate());
     }
 };
 
@@ -96,7 +98,7 @@ async function refreshPosts(){
     $('#forum-posts-overflow').empty();
     $('#forum-post-form').hide();
 
-    const q = query(collection(db, "posts"), orderBy("dateCreated", "desc"));
+    const q = query(collection(db, "posts"), orderBy("latestChange", "desc"));
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
@@ -105,6 +107,7 @@ async function refreshPosts(){
     });
 
     $('.post-card')[0].click(getPost);
+    $('#forum-comment-form').hide();
 }
 
 function showPost(title,body,user,dateCreated)
@@ -137,6 +140,12 @@ function createCommentElement(comment)
 async function getComments(comments){
     $('#forum-comments-overflow').empty();
 
+    if (comments == null)
+    {
+        $('#forum-comments-overflow').append('<p>No comments yet</p>');
+        return;
+    }
+
     const q = query(comments, orderBy("dateCreated", "desc"));
     const querySnapshot = await getDocs(q);
 
@@ -157,10 +166,9 @@ async function getPost(){
     let body = post.body;
     let user = post.user;
     let dateCreated = post.dateCreated;
-    let comments = collection(db, "posts/"+id+"/comments");
 
     showPost(title,body,user,dateCreated);
-    getComments(comments);
+    getComments(collection(db, "posts/"+$('#chosen-post-title').attr('id')+"/comments"));
 }
 
 $('#forum-post-button').click(() => {
@@ -176,9 +184,8 @@ $("#forum-post-submit").click(function(){
     let title = $('#forum-post-title').val();
     let body = $('#forum-post-body').val();
     let user = $('#forum-post-user').val();
-    user = 0;
 
-    if (title == "" || body == ""){
+    if (title == "" || body == "" || user == ""){
         alert("Please fill in all fields!");
         return;
     }
@@ -189,6 +196,32 @@ $("#forum-post-submit").click(function(){
 
     $('#forum-post-title').val("");
     $('#forum-post-body').val("");
+    $('#forum-post-user').val("");
 
     refreshPosts();
+});
+
+$('#forum-comment-submit').click(function(){
+    let comment = $('#forum-comment-comment').val();
+    let user = $('#forum-comment-user').val();
+
+    if (comment == "" || user == ""){
+        alert("Please fill in all fields!");
+        return;
+    }
+
+    let doc = commentConverter.toFirestore(new Comment(comment,user));
+
+    addDoc(collection(db, "posts/"+$('#chosen-post-title').attr('id')+"/comments"), doc);
+    getComments(collection(db, "posts/"+$('#chosen-post-title').attr('id')+"/comments"));
+    
+    $('#forum-comment-form').hide(600);
+});
+
+$('#comment-button').click(function(){
+    $('#forum-comment-form').show(600);
+});
+
+$('#forum-comment-cancel').click(function(){
+    $('#forum-comment-form').hide(600);
 });

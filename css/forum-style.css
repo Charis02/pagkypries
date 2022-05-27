@@ -10,14 +10,17 @@ body{
 }
 
 button{
-    margin-top: 10px;
-    border: var(--alternative-color) solid 1px;
     border-radius: 5px;
+    border: var(--alternative-color) solid 1px;
+    background-color: var(--primary-color);
+    cursor: pointer;
+    color: #fff;
+}
+
+#left-divider button{
+    margin-top: 10px;
     padding: 10px;
     font-size: var(--subtitle-font-size);
-    background-color: var(--primary-color);
-    color: #fff;
-    cursor: pointer;
 }
 
 #forum-post-form{
@@ -110,4 +113,50 @@ textarea{
     font-weight: bold;
     margin-bottom: 5px;
     margin-left: 4px;
+}
+
+#comment-button-line{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding: 0 5px;
+    padding-right: 25px;
+}
+
+#comment-button-line h4{
+    font-size: var(--title-font-size);
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-color: var(--secondary-color);
+}
+
+#comment-button-line button{
+    height: 40px;
+    font-size: var(--text-font-size);
+}
+
+.comment-field{
+    margin-bottom: 16px;
+}
+
+.comment-label{
+    font-size: var(--subtitle-font-size);
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-left: 4px;
+}
+
+#forum-post-submit, #forum-comment-submit{
+    margin-top: 10px;
+    padding: 10px;
+    font-size: var(--subtitle-font-size);
+}
+
+#forum-comment-cancel{
+    margin-top: 10px;
+    padding: 10px;
+    font-size: var(--subtitle-font-size);
+    background-color: red;
 }
