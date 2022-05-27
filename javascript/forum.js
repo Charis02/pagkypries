@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
-import { getFirestore,collection, addDoc,getDoc,doc,getDocs,query,orderBy,Timestamp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore.js";
+import { getFirestore,collection, addDoc,getDoc,doc,getDocs,query,orderBy,Timestamp,setDoc } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore.js";
 
 class Comment{
     constructor(comment,user,date=Timestamp.now().toDate()){
@@ -101,9 +101,9 @@ async function refreshPosts(){
     const q = query(collection(db, "posts"), orderBy("latestChange", "desc"));
     const querySnapshot = await getDocs(q);
 
-    querySnapshot.forEach((doc) => {
-        let post = postConverter.fromFirestore(doc);
-        $("#forum-posts-overflow").append(createPostElement(post,doc.id));
+    querySnapshot.forEach((cur_doc) => {
+        let post = postConverter.fromFirestore(cur_doc);
+        $("#forum-posts-overflow").append(createPostElement(post,cur_doc.id));
     });
 
     $('.post-card')[0].click(getPost);
@@ -149,14 +149,15 @@ async function getComments(comments){
     const q = query(comments, orderBy("dateCreated", "desc"));
     const querySnapshot = await getDocs(q);
 
-    querySnapshot.forEach((doc) => {
-        let comment = commentConverter.fromFirestore(doc);
+    querySnapshot.forEach((cur_doc) => {
+        let comment = commentConverter.fromFirestore(cur_doc);
         $("#forum-comments-overflow").append(createCommentElement(comment));
     });
 }
 
 async function getPost(){
     let id = $(this).attr('id');
+    localStorage.setItem('postId', id);
 
     const docRef = doc(db, "posts", id);
     const docSnap = await getDoc(docRef);
@@ -168,7 +169,7 @@ async function getPost(){
     let dateCreated = post.dateCreated;
 
     showPost(title,body,user,dateCreated);
-    getComments(collection(db, "posts/"+$('#chosen-post-title').attr('id')+"/comments"));
+    getComments(collection(db, "posts/"+id+"/comments"));
 }
 
 $('#forum-post-button').click(() => {
@@ -190,9 +191,9 @@ $("#forum-post-submit").click(function(){
         return;
     }
 
-    let doc = postConverter.toFirestore(new Post(title,body,user));
+    let cur_doc = postConverter.toFirestore(new Post(title,body,user));
 
-    addDoc(collection(db, "posts"), doc);
+    addDoc(collection(db, "posts"), cur_doc);
 
     $('#forum-post-title').val("");
     $('#forum-post-body').val("");
@@ -210,16 +211,23 @@ $('#forum-comment-submit').click(function(){
         return;
     }
 
-    let doc = commentConverter.toFirestore(new Comment(comment,user));
+    let cur_doc = commentConverter.toFirestore(new Comment(comment,user));
+    let id = localStorage.getItem('postId');
+    console.log(id);
 
-    addDoc(collection(db, "posts/"+$('#chosen-post-title').attr('id')+"/comments"), doc);
-    getComments(collection(db, "posts/"+$('#chosen-post-title').attr('id')+"/comments"));
-    
-    $('#forum-comment-form').hide(600);
+    addDoc(collection(db, "posts/"+id+"/comments"), cur_doc);
+
+    const postRef = doc(db, "posts", id);
+    setDoc(postRef, {latestChange: cur_doc.dateCreated}, {merge: true});
+
+    refreshPosts();
 });
 
 $('#comment-button').click(function(){
-    $('#forum-comment-form').show(600);
+    if ($('#forum-comment-form').is(':visible'))
+        $('#forum-comment-form').hide(600);
+    else
+        $('#forum-comment-form').show(600);
 });
 
 $('#forum-comment-cancel').click(function(){

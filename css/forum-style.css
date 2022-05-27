@@ -160,3 +160,15 @@ textarea{
     font-size: var(--subtitle-font-size);
     background-color: red;
 }
+
+#comment-submit-buttons{
+    margin-bottom: 20px;
+}
+
+.comment-card{
+    margin: 0 10px;
+    padding: 10px;
+    border: 0.8px solid var(--secondary-color);
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
