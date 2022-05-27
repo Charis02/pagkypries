@@ -1,7 +1,41 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
-import { getFirestore,collection, addDoc,getDoc,doc,getDocs,query,orderBy } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore.js";
+import { getFirestore,collection, addDoc,getDoc,doc,getDocs,query,orderBy,Timestamp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore.js";
 
+
+class Post{
+    constructor (title,body,user,date=null)
+    {
+        this.title = title;
+        this.body = body;
+        this.user = user;
+
+        if (date == null)
+            this.dateCreated = Timestamp.now().toDate();
+        else
+            this.dateCreated = date;
+    }
+
+    toString()
+    {
+        return 'Post with title ' + this.title + ' created by ' + this.user;
+    }
+}
+
+const postConverter = {
+    toFirestore: (post) => {
+        return {
+            title: post.title,
+            body: post.body,
+            user: post.user,
+            dateCreated: Timestamp.fromDate(post.dateCreated)
+            };
+    },
+    fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return new Post(data.title, data.body, data.user, data.dateCreated.toDate());
+    }
+};
 
 const firebaseConfig = {
 apiKey: "AIzaSyDVCPmNRgwARnbmvbBJcyCzzT5o_qqKb_o",
@@ -22,9 +56,7 @@ const db = getFirestore(app);
 
 function createPostElement(post,id)
 {
-    let title = post.title;
-    let date = post.date;
-
+    console.log("Here!");
     let row = document.createElement("div");
     row.classList.add("post-card");
     row.id = id;
@@ -32,11 +64,11 @@ function createPostElement(post,id)
 
     let col = document.createElement("div");
     col.classList.add("post-card-title");
-    col.innerHTML = title;
+    col.innerHTML = post.title;
 
     let col2 = document.createElement("div");
     col2.classList.add("post-card-date");
-    col2.innerHTML = date;
+    col2.innerHTML = post.dateCreated;
 
     row.appendChild(col);
     row.appendChild(col2);
@@ -47,13 +79,12 @@ function createPostElement(post,id)
 async function refreshPosts(){
     $('#forum-posts-overflow').empty();
 
-    const q = query(collection(db, "posts"), orderBy("date", "desc"));
+    const q = query(collection(db, "posts"), orderBy("dateCreated", "desc"));
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
-        let post = doc.data();
-        let row = createPostElement(post,doc.id);
-        $("#forum-posts-overflow").append(row);
+        let post = postConverter.fromFirestore(doc);
+        $("#forum-posts-overflow").append(createPostElement(post,doc.id));
     });
 }
 
@@ -63,7 +94,7 @@ async function getPost(){
     const docRef = doc(db, "posts", id);
     const docSnap = await getDoc(docRef);
 
-    let post = docSnap.data();
+    let post = postConverter.fromFirestore(docSnap);
     let title = post.title;
     let body = post.body;
 
@@ -78,19 +109,17 @@ $(document).ready(function(){
 $("#forum-post-submit").click(function(){
     let title = $('#forum-post-title').val();
     let body = $('#forum-post-body').val();
+    let user = $('#forum-post-user').val();
+    user = 0;
 
     if (title == "" || body == ""){
         alert("Please fill in all fields!");
         return;
     }
 
-   let data = {
-       title: title,
-       body: body,
-       date: new Date().toLocaleString(),
-   }
+    let doc = postConverter.toFirestore(new Post(title,body,user));
 
-   addDoc(collection(db, "posts"), data);
+    addDoc(collection(db, "posts"), doc);
 
     $('#forum-post-title').val("");
     $('#forum-post-body').val("");
