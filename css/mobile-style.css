@@ -84,7 +84,6 @@
     }
 
     #year-label{
-        top: 3.8% !important;
-        right: 20% !important;
+        display: none;
     }
 }
