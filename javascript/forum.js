@@ -71,27 +71,28 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 const db = getFirestore(app);
+let dateOptions =   { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
 
 
 function createPostElement(post,id)
 {
-    let row = document.createElement("div");
-    row.classList.add("post-card");
-    row.id = id;
-    row.onclick = getPost;
+    let post_card = document.createElement("div");
+    post_card.classList.add("post-card");
+    post_card.id = id;
+    post_card.onclick = getPost;
 
-    let col = document.createElement("div");
-    col.classList.add("post-card-title");
-    col.innerHTML = post.title;
+    let title = document.createElement("div");
+    title.classList.add("post-card-title");
+    title.innerHTML = post.title;
 
-    let col2 = document.createElement("div");
-    col2.classList.add("post-card-date");
-    col2.innerHTML = post.dateCreated;
+    let bottom = document.createElement("div");
+    bottom.classList.add("post-card-bottom");
+    bottom.innerHTML = post.user + ', στις ' + post.dateCreated.toLocaleDateString('el-GR', dateOptions);
 
-    row.appendChild(col);
-    row.appendChild(col2);
+    post_card.appendChild(title);
+    post_card.appendChild(bottom);
 
-    return row;
+    return post_card;
 }
 
 async function refreshPosts(){
@@ -113,28 +114,45 @@ async function refreshPosts(){
 function showPost(title,body,user,dateCreated)
 {
     $('#chosen-post-title').html('<h3>'+title+'</h3>');
-    $('#chosen-post-body').html(body);
+
+    let post_box = document.createElement("div");
+    post_box.id= "post-box";
+
+    let post_body = document.createElement("div");
+    post_body.id = "chosen-post-body";
+    post_body.innerHTML = body;
+    post_box.appendChild(post_body);
+
+    let post_bottom = document.createElement("div");
+    post_bottom.id = "chosen-post-bottom";
+    post_bottom.innerHTML = 'Γράφτηκε από ' + user;
+    post_bottom.innerHTML += ' στίς ' + dateCreated.toLocaleDateString('el-GR', dateOptions);
+    post_box.appendChild(post_bottom);
+
+    $('#chosen-post-box').html(post_box);
     $('#forum-post-view').show();
     $('#forum-post-form').hide();
 }
 
 function createCommentElement(comment)
 {
-    let row = document.createElement("div");
-    row.classList.add("comment-card");
+    let card = document.createElement("div");
+    card.classList.add("comment-card");
 
-    let col = document.createElement("div");
-    col.classList.add("comment-card-comment");
-    col.innerHTML = comment.comment;
+    let msg_div = document.createElement("div");
+    msg_div.classList.add("comment-card-comment");
+    msg_div.innerHTML = comment.comment;
 
-    let col2 = document.createElement("div");
-    col2.classList.add("comment-card-date");
-    col2.innerHTML = comment.dateCreated;
+    let bottom_div = document.createElement("div");
+    bottom_div.classList.add("comment-card-bottom");
 
-    row.appendChild(col);
-    row.appendChild(col2);
+    bottom_div.innerHTML = 'Γράφτηκε από ' + comment.user;
+    bottom_div.innerHTML += ' στίς ' + comment.dateCreated.toLocaleDateString('el-GR', dateOptions);
 
-    return row;
+    card.appendChild(msg_div);
+    card.appendChild(bottom_div);
+
+    return card;
 }
 
 async function getComments(comments){

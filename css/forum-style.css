@@ -93,13 +93,21 @@ textarea{
     margin: 0;
 }
 
-#chosen-post-body{
+#chosen-post-box{
     font-size: var(--text-font-size);
-    font-weight: normal;
-    margin: 10px 20px;
-    border: 1px solid #e6e6e6;
+    margin: 10px 10px;
+    border: 1px solid var(--primary-color);
     padding: 10px;
     border-radius: 5px;
+}
+
+#chosen-post-body{
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+#chosen-post-bottom, .comment-card-bottom, .post-card-bottom{
+    font-style: italic;
 }
 
 .post-field{
@@ -171,4 +179,10 @@ textarea{
     border: 0.8px solid var(--secondary-color);
     margin-bottom: 10px;
     border-radius: 5px;
+}
+
+.comment-card-comment{
+    font-size: var(--text-font-size);
+    font-weight: 800;
+    margin-bottom: 5px;
 }
