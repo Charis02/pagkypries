@@ -64,4 +64,22 @@
         width: 50%;
     }
 
+    #left-divider{
+        width: 50% !important;
+    }
+
+    #forum-post-button{
+        width: 100% !important;
+        display: flex;
+        justify-content: center;
+        
+    }
+    #left-divider button{
+        width: 90% !important;
+        font-size: var(--text-font-size) !important;
+    }
+
+    #right-divider{
+        width: 50% !important;
+    }
 }
