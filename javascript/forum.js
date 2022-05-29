@@ -243,11 +243,11 @@ $('#forum-comment-submit').click(function(){
 
 $('#comment-button').click(function(){
     if ($('#forum-comment-form').is(':visible'))
-        $('#forum-comment-form').hide(600);
+        $('#forum-comment-form').hide();
     else
-        $('#forum-comment-form').show(600);
+        $('#forum-comment-form').show();
 });
 
 $('#forum-comment-cancel').click(function(){
-    $('#forum-comment-form').hide(600);
+    $('#forum-comment-form').hide();
 });
