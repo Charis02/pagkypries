@@ -202,6 +202,9 @@ body{
 
 #footer{
     margin:0;
+    position: sticky;
+    bottom: 0;
+    margin-top: auto;
 
     background-color: var(--alternative-color);
     width: 100%;
@@ -220,3 +223,23 @@ body{
     font-size: var(--text-font-size);
     color: var(--primary-color)
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color); 
+  }
