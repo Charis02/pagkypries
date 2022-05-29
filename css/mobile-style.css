@@ -72,7 +72,7 @@
         width: 100% !important;
         display: flex;
         justify-content: center;
-        
+
     }
     #left-divider button{
         width: 90% !important;
@@ -81,5 +81,10 @@
 
     #right-divider{
         width: 50% !important;
+    }
+
+    #year-label{
+        top: 3.8% !important;
+        right: 20% !important;
     }
 }
