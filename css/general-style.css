@@ -14,7 +14,7 @@ body{
     transition: opacity 0.6s;
 }
 
-span{
+a{
     cursor: pointer;
 }
 
@@ -39,6 +39,7 @@ body{
 
     position: sticky;
     top: 0;
+    z-index: 99;
 }
 
 #header .main-title{
@@ -102,7 +103,7 @@ body{
     border-top: 1px solid var(--secondary-color);
 }
 
-.header-dropdown-content span{
+.header-dropdown-content a{
     display: flex;
     align-items: center;
    
@@ -209,7 +210,14 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+}
+
+#footer p{
+    font-size: var(--text-font-size);
+    text-align: center;
+    margin: 0;
+    margin-bottom: 2px;
+    padding: 0;
 }
 
 .copyright{
