@@ -53,24 +53,56 @@ function get_student_data(student,jsondata)
 
     let max_len = 0;
     for (let i = 0; i < lessons.length; i++) {
-        lesson_ranks[lessons[i]] = [];
-        lesson_codes[lessons[i]] = [];
+        ranks = [];
+        codes = [];
         let next_percentile = 0;
 
         for (let j = 0; j < jsondata[lessons[i]].length; j++) {
             let current_percentile = (j+1) / jsondata[lessons[i]].length;
             if (next_percentile < wanted_percentiles.length
-                && current_percentile > wanted_percentiles[next_percentile]){
-                lesson_codes[lessons[i]].push(jsondata[lessons[i]][j].code);
-                lesson_ranks[lessons[i]].push(jsondata[lessons[i]][j].grade);
+                && current_percentile >= wanted_percentiles[next_percentile]){
+                codes.push(jsondata[lessons[i]][j].code);
+                ranks.push(jsondata[lessons[i]][j].grade);
                 next_percentile++;
-            }
-            else if(jsondata[lessons[i]][j].code == student){
-                lesson_codes[lessons[i]].push(jsondata[lessons[i]][j].code);
-                lesson_ranks[lessons[i]].push(jsondata[lessons[i]][j].grade);
             }
         }
 
+        for (let j = 0; j < jsondata[lessons[i]].length; j++)
+        {
+            if(jsondata[lessons[i]][j].code == student){
+                if(!ranks.includes(jsondata[lessons[i]][j].code))
+                {
+                    codes.push(jsondata[lessons[i]][j].code);
+                    ranks.push(jsondata[lessons[i]][j].grade);
+                }
+                else if (!codes.includes(jsondata[lessons[i]][j].code))
+                {
+                    codes[ranks.indexOf(jsondata[lessons[i]][j].grade)] = jsondata[lessons[i]][j].code;
+                }
+            }
+        }
+
+        let fin = [];
+        for( let j = 0; j < ranks.length; j++)
+        {
+            fin.push({code: codes[j], grade: ranks[j]});
+        }
+
+        fin.sort(function(a, b) {
+            return a.grade - b.grade;
+        });
+
+        codes = [];
+        ranks = [];
+
+        for(let j = 0; j < fin.length; j++)
+        {
+            codes.push(fin[j].code);
+            ranks.push(fin[j].grade);
+        }
+
+        lesson_ranks[lessons[i]] = ranks;
+        lesson_codes[lessons[i]] = codes;
         max_len = Math.max(max_len, lesson_ranks[lessons[i]].length);
     }
 
@@ -81,13 +113,16 @@ function get_student_data(student,jsondata)
             labels.push((wanted_percentiles[i]*100));
         }
 
+
+        labels.push('');
         for (let i = 0; i < lessons.length; i++) {
             let data_set = {};
 
             data_set['label'] = lessons[i];
-            data_set['data'] = lesson_ranks[lessons[i]].reverse();
-            data_set['codes'] = lesson_codes[lessons[i]].reverse();
+            data_set['data'] = lesson_ranks[lessons[i]];
+            data_set['codes'] = lesson_codes[lessons[i]];
             data_set['borderColor'] = border_colors[i];
+            data_set['backgroundColor'] = border_colors[i];
             data_set['tension'] = 0.1;
 
             datasets.push(data_set);
