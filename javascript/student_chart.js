@@ -46,15 +46,14 @@ function get_student_data(student,jsondata)
         }
     }
 
-    let lesson_ranks = {};
+    let lesson_data= {};
     let lesson_codes = {};
 
     let wanted_percentiles = [0.0,0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,1.0];
 
     let max_len = 0;
     for (let i = 0; i < lessons.length; i++) {
-        ranks = [];
-        codes = [];
+        let data = [];
         let next_percentile = 0;
 
         for (let j = 0; j < jsondata[lessons[i]].length; j++) {
@@ -62,46 +61,15 @@ function get_student_data(student,jsondata)
             if (next_percentile < wanted_percentiles.length
                 && current_percentile >= wanted_percentiles[next_percentile]){
                 codes.push(jsondata[lessons[i]][j].code);
-                ranks.push(jsondata[lessons[i]][j].grade);
+                data.push({x: wanted_percentiles[next_percentile], y: jsondata[lessons[i]][j].score});
                 next_percentile++;
             }
-        }
-
-        for (let j = 0; j < jsondata[lessons[i]].length; j++)
-        {
-            if(jsondata[lessons[i]][j].code == student){
-                if(!ranks.includes(jsondata[lessons[i]][j].code))
-                {
-                    codes.push(jsondata[lessons[i]][j].code);
-                    ranks.push(jsondata[lessons[i]][j].grade);
-                }
-                else if (!codes.includes(jsondata[lessons[i]][j].code))
-                {
-                    codes[ranks.indexOf(jsondata[lessons[i]][j].grade)] = jsondata[lessons[i]][j].code;
-                }
+            else if(jsondata[lessons[i]][j].code == student){
+                data.push({x: current_percentile, y: jsondata[lessons[i]][j].score});
             }
         }
 
-        let fin = [];
-        for( let j = 0; j < ranks.length; j++)
-        {
-            fin.push({code: codes[j], grade: ranks[j]});
-        }
-
-        fin.sort(function(a, b) {
-            return a.grade - b.grade;
-        });
-
-        codes = [];
-        ranks = [];
-
-        for(let j = 0; j < fin.length; j++)
-        {
-            codes.push(fin[j].code);
-            ranks.push(fin[j].grade);
-        }
-
-        lesson_ranks[lessons[i]] = ranks;
+        lesson_data[lessons[i]] = data;
         lesson_codes[lessons[i]] = codes;
         max_len = Math.max(max_len, lesson_ranks[lessons[i]].length);
     }
@@ -119,11 +87,10 @@ function get_student_data(student,jsondata)
             let data_set = {};
 
             data_set['label'] = lessons[i];
-            data_set['data'] = lesson_ranks[lessons[i]];
+            data_set['data'] = lesson_data[lessons[i]];
             data_set['codes'] = lesson_codes[lessons[i]];
             data_set['borderColor'] = border_colors[i];
             data_set['backgroundColor'] = border_colors[i];
-            data_set['tension'] = 0.1;
 
             datasets.push(data_set);
         }
@@ -140,16 +107,7 @@ let config = {
     type: 'line',
     data: {
         labels: [],
-        datasets: [
-            {
-                label: 'Student 1',
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1,
-                tension: 0.1
-            }
-        ]
+        datasets: []
     },
     options: {
       responsive: true,
@@ -173,8 +131,16 @@ let config = {
                 }
             },
             max: 21,
+        },
+        x: {
+            ticks: {
+                callback(value){
+                    if(value%10 == 0)
+                        return value + '%';
+                }
+                }
+            }
         }
-    }
     }
   };
 
