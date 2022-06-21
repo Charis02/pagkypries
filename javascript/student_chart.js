@@ -162,6 +162,7 @@ $('#filter-input-button').click(function(){
 
         changeData(window.chart, ret.labels, ret.datasets);
         window.chart.options.elements.point.radius = customRadius(student);
+        window.chart.options.elements.point.style = 'star';
         window.chart.update();
     });
 });
