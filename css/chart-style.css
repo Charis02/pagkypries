@@ -1,0 +1,8 @@
+.main-content{
+    height: 80vh;
+}
+
+#chart-div{
+    flex-grow:1;
+    width: 100%;
+}

@@ -23,11 +23,23 @@ function customRadius(student)
         let index = context.dataIndex;
         let code = context.dataset.codes[index];
 
-        return (code == student) ? 10: 5;
+        return (code == student) ? 10: 0;
     }
 
     return fn;
   }
+
+function customStyle(student)
+{
+    function fn(context){
+        let index = context.dataIndex;
+        let code = context.dataset.codes[index];
+
+        return (code == student) ? 'circle': 'circle';
+    }
+    
+    return fn;
+}
 
 function changeData(chart, labels, datasets)
 {
@@ -49,37 +61,51 @@ function get_student_data(student,jsondata)
     let lesson_data= {};
     let lesson_codes = {};
 
+    let labels = [];
+
     let wanted_percentiles = [0.0,0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,1.0];
 
     let max_len = 0;
     for (let i = 0; i < lessons.length; i++) {
         let data = [];
+        let codes = [];
         let next_percentile = 0;
 
-        for (let j = 0; j < jsondata[lessons[i]].length; j++) {
-            let current_percentile = (j+1) / jsondata[lessons[i]].length;
+        for (let j = jsondata[lessons[i]].length-1;j>=0; j--) {
+            let current_percentile = (jsondata[lessons[i]].length-j) / jsondata[lessons[i]].length;
             if (next_percentile < wanted_percentiles.length
                 && current_percentile >= wanted_percentiles[next_percentile]){
                 codes.push(jsondata[lessons[i]][j].code);
-                data.push({x: wanted_percentiles[next_percentile], y: jsondata[lessons[i]][j].score});
+                data.push({x: wanted_percentiles[next_percentile], y: jsondata[lessons[i]][j].grade});
+                labels.push(wanted_percentiles[next_percentile]);
                 next_percentile++;
             }
             else if(jsondata[lessons[i]][j].code == student){
-                data.push({x: current_percentile, y: jsondata[lessons[i]][j].score});
+                codes.push(jsondata[lessons[i]][j].code);
+                data.push({x: current_percentile, y: jsondata[lessons[i]][j].grade});
             }
         }
 
+
+
+        console.log(data);
+
         lesson_data[lessons[i]] = data;
         lesson_codes[lessons[i]] = codes;
-        max_len = Math.max(max_len, lesson_ranks[lessons[i]].length);
+        max_len = Math.max(max_len, data.length);
     }
 
-    let datasets = [];
-        let labels = [];
+    // remove duplicate elements in labels
 
-        for (let i = 0; i < wanted_percentiles.length; i++) {
-            labels.push((wanted_percentiles[i]*100));
+    let unique_labels = [];
+    for (let i = 0; i < labels.length; i++) {
+        if (unique_labels.indexOf(labels[i]) == -1) {
+            unique_labels.push(labels[i]);
         }
+    }
+    labels = unique_labels;
+
+    let datasets = [];
 
 
         labels.push('');
@@ -110,6 +136,7 @@ let config = {
         datasets: []
     },
     options: {
+        maintainAspectRatio: false,
       responsive: true,
       plugins: {
         legend: {
@@ -123,7 +150,8 @@ let config = {
         }
       },
       scales: {
-        y: {
+        yAxes: {
+            type: 'linear',
             ticks: {
                 callback(value){
                     if(value != 21)
@@ -132,13 +160,15 @@ let config = {
             },
             max: 21,
         },
-        x: {
+        xAxes: {
+            type: 'linear',
             ticks: {
                 callback(value){
-                    if(value%10 == 0)
-                        return value + '%';
+                    if(value != 1.1)
+                        return value*100 + '%';
                 }
-                }
+            },
+            max: 1.1,
             }
         }
     }
@@ -148,10 +178,17 @@ let config = {
   window.chart = new Chart(ctx, config);
 });
 
+$('#filter-input-text').on( 'keyup', function (e) {
+    this.value = this.value.replace(/[^0-9]/g,''); // only allow numbers
+    if (e.keyCode == 13) {
+        $('#filter-input-button').click();
+    }
+});
+
+
 $('#filter-input-button').click(function(){
     let year = localStorage.getItem('chosen_year');
     let student = $('#filter-input-text').val().toString();
-    console.log(student);
     fetch("data/" + year + "/lessons_data.json")
     .then(response => {
         return response.json();
@@ -162,7 +199,8 @@ $('#filter-input-button').click(function(){
 
         changeData(window.chart, ret.labels, ret.datasets);
         window.chart.options.elements.point.radius = customRadius(student);
-        window.chart.options.elements.point.style = 'star';
+        window.chart.update();
+        window.chart.options.elements.point.pointStyle = customStyle(student);
         window.chart.update();
     });
 });
