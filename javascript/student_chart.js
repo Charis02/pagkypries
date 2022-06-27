@@ -23,7 +23,7 @@ function customRadius(student)
         let index = context.dataIndex;
         let code = context.dataset.codes[index];
 
-        return (code == student) ? 10: 0;
+        return (code == student) ? 10: 4.5;
     }
 
     return fn;
@@ -35,7 +35,7 @@ function customStyle(student)
         let index = context.dataIndex;
         let code = context.dataset.codes[index];
 
-        return (code == student) ? 'circle': 'circle';
+        return (code == student) ? 'circle': 'star';
     }
     
     return fn;
@@ -86,10 +86,6 @@ function get_student_data(student,jsondata)
             }
         }
 
-
-
-        console.log(data);
-
         lesson_data[lessons[i]] = data;
         lesson_codes[lessons[i]] = codes;
         max_len = Math.max(max_len, data.length);
@@ -117,6 +113,7 @@ function get_student_data(student,jsondata)
             data_set['codes'] = lesson_codes[lessons[i]];
             data_set['borderColor'] = border_colors[i];
             data_set['backgroundColor'] = border_colors[i];
+            data_set['tension'] = 0.2
 
             datasets.push(data_set);
         }
@@ -169,6 +166,18 @@ let config = {
                 }
             },
             max: 1.1,
+            }
+        }
+        ,
+        plugins:{
+            tooltip: {
+                callbacks: {
+                title: (items) => {
+                    // x value to 1 decimal place + %
+                    let val = items[0].parsed.x*100
+                    return val.toFixed(1) + '%';
+                }
+                }
             }
         }
     }
