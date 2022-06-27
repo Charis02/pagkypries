@@ -2,7 +2,7 @@
     height: 80vh;
 }
 
-#chart-div{
+.chart-div{
     flex-grow:1;
     width: 100%;
 }
