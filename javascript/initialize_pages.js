@@ -19,6 +19,14 @@ function initialize_page()
         case "bases":
             bases();
             break;
+        case "bases_chart":
+            bases_chart();
+            break;
+        case "student_chart":
+            student_chart();
+            break;
+        case "lesson_histograms":
+            lesson_histograms();
         default:
             break;
     }

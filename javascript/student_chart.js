@@ -124,7 +124,7 @@ function get_student_data(student,jsondata)
     };
 }
 
-$(document).ready(function(){
+function student_chart(){
 
 let config = {
     type: 'line',
@@ -184,8 +184,12 @@ let config = {
   };
 
   const ctx = $('#myChart');
+
+  if (window.chart)
+    window.chart.destroy();
+
   window.chart = new Chart(ctx, config);
-});
+}
 
 $('#filter-input-text').on( 'keyup', function (e) {
     this.value = this.value.replace(/[^0-9]/g,''); // only allow numbers

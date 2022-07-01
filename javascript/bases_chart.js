@@ -1,4 +1,6 @@
-$(document).ready(function() {
+
+function bases_chart()
+{
     let tooltip_mapper = {};
 
     let config = {
@@ -78,5 +80,10 @@ $(document).ready(function() {
     });
     
     const ctx = $('#myChart');
+    
+    if (window.chart) {
+        window.chart.destroy();
+    }
+
     window.chart = new Chart(ctx, config);
-});
+}

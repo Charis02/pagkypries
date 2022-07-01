@@ -1,74 +1,5 @@
 const BINS = 40;
 
-$(document).ready(function() {
-    const ctx = $('#histChart')
-
-    const chart = new Chart(ctx, {
-        data: {
-            labels: [1,3,4,5],
-            datasets: [{
-                type: 'bar',
-                data: [14,25,23,6]
-            }]
-        },
-        options: {
-            scales: {
-                x: {
-                    type: 'linear',
-                    offset: false,
-                    grid: {
-                    offset: false
-                    },
-                    ticks: {
-                    stepSize: 1
-                    },
-                    title: {
-                    display: true,
-                    text: 'Βαθμολογίες',
-                    fontSize: 20
-                    }
-                },
-            },
-            plugins:{
-                tooltip: {
-                    callbacks: {
-                    title: (items) => {
-                        if (!items.length) {
-                        return '';
-                        }
-                        const item = items[0];
-                        const x = item.parsed.x;
-                        const min = x - 0.25;
-                        const max = x + 0.25;
-                        return `Βαθμολογίες: ${min} - ${max}`;
-                    }
-                    }
-                }
-            }
-        },
-    });
-
-
-    window.chart = chart;
-
-    let lesson_selector = $('#lesson-selector');
-    let year = localStorage.getItem('chosen_year');
-    let second_lesson = 'Μαθηματικά Κατεύθυνσης [37]';
-
-    fetch("data/" + year + "/lessons_data.json")
-    .then(response => { return response.json();})
-    .then(function (jsondata) {
-        for(let lesson in jsondata){
-            lesson_selector.append($('<option>', {
-                value: lesson,
-                text: lesson
-                }));
-        }
-
-        lesson_selector.val(second_lesson).change();
-    });
-});
-
 function getBin(value,min,max)
 {
     let bin = Math.floor(BINS*value/(max-min));
@@ -163,3 +94,74 @@ $("#lesson-selector").change(function() {
         updateHistogram(data);
     })
 });
+
+function lesson_histograms()
+{
+    if (window.chart) {
+        window.chart.destroy();
+    }
+    const ctx = $('#histChart');
+    const chart = new Chart(ctx, {
+        data: {
+            labels: [1,3,4,5],
+            datasets: [{
+                type: 'bar',
+                data: [14,25,23,6]
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    type: 'linear',
+                    offset: false,
+                    grid: {
+                    offset: false
+                    },
+                    ticks: {
+                    stepSize: 1
+                    },
+                    title: {
+                    display: true,
+                    text: 'Βαθμολογίες',
+                    fontSize: 20
+                    }
+                },
+            },
+            plugins:{
+                tooltip: {
+                    callbacks: {
+                    title: (items) => {
+                        if (!items.length) {
+                        return '';
+                        }
+                        const item = items[0];
+                        const x = item.parsed.x;
+                        const min = x - 0.25;
+                        const max = x + 0.25;
+                        return `Βαθμολογίες: ${min} - ${max}`;
+                    }
+                    }
+                }
+            }
+        },
+    });
+
+    window.chart = chart;
+
+    let lesson_selector = $('#lesson-selector');
+    let year = localStorage.getItem('chosen_year');
+    let second_lesson = 'Μαθηματικά Κατεύθυνσης [37]';
+
+    fetch("data/" + year + "/lessons_data.json")
+    .then(response => { return response.json();})
+    .then(function (jsondata) {
+        for(let lesson in jsondata){
+            lesson_selector.append($('<option>', {
+                value: lesson,
+                text: lesson
+                }));
+        }
+
+        lesson_selector.val(second_lesson).change();
+    });
+}
