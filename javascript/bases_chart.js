@@ -58,7 +58,7 @@ function bases_chart()
                 lesson = lesson.substring(0, 40) + "...";
 
             lesson = lesson.split('] ')[1];
-            tooltip_mapper[lesson] = pairs[i][0].split("-")[0];
+            tooltip_mapper[lesson] = pairs[i][0];
             labels.push(lesson);
             data.push(pairs[i][1]);
         }
