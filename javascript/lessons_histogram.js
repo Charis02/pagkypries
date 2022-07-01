@@ -141,6 +141,9 @@ function lesson_histograms()
                         return `Βαθμολογίες: ${min} - ${max}`;
                     }
                     }
+                },
+                legend: {
+                    display: false
                 }
             }
         },
