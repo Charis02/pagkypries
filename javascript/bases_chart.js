@@ -10,6 +10,7 @@ function bases_chart()
             datasets: []
         },
         options: {
+            responsive: true,
             maintainAspectRatio: false,
             plugins: {
                 tooltip: {
