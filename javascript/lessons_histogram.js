@@ -110,6 +110,7 @@ function lesson_histograms()
             }]
         },
         options: {
+            responsive: true,
             scales: {
                 x: {
                     type: 'linear',
