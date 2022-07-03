@@ -1,0 +1,37 @@
+#title{
+    font-size: var(--title-font-size);
+    font-weight: bold;
+    margin: 0;
+    margin-left: 4vw;
+    padding: 0;
+    text-decoration: underline;
+    color: var(--primary-color);
+    text-decoration-color: var(--secondary-color);
+}
+
+#about-text{
+    margin-left: 4vw;
+    margin-right: 8vw;
+    font-size: var(--text-font-size);
+    color: var(--primary-color);
+}
+
+.small-title{
+    font-size: var(--subtitle-font-size);
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+    color: var(--primary-color);
+    text-decoration-color: var(--secondary-color);
+}
+
+.about-small-text{
+    font-size: var(--text-font-size);
+    color: var(--primary-color);
+}
+
+.about-small-text a{
+    text-decoration: none;
+    color: var(--secondary-color);
+}
