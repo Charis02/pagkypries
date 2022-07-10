@@ -1,5 +1,10 @@
 function createSelect(lessons_names) {
     let select = document.getElementById("lesson-selector");
+    
+    // clear the select
+    while (select.options.length > 0) {
+        select.remove(0);
+    }
 
     for(let i = 0;i < lessons_names.length;i++)
     {
