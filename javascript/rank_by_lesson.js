@@ -50,7 +50,6 @@ async function rank_by_lesson(){
 }
 
 async function select_lesson(){
-    console.log("select_lesson");
     let year = localStorage.getItem('chosen_year');
     let filename = 'data/' + year + '/lessons_data.json';
 
@@ -66,7 +65,9 @@ async function select_lesson(){
     // destroy other ias instance
     
     if(window.ias)
+    {
         window.ias.unbind();
+    }
 
     window.ias = new InfiniteAjaxScroll('#table tbody', {
         item: '.row',

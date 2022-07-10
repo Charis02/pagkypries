@@ -231,7 +231,6 @@ $('#forum-comment-submit').click(function(){
 
     let cur_doc = commentConverter.toFirestore(new Comment(comment,user));
     let id = localStorage.getItem('postId');
-    console.log(id);
 
     addDoc(collection(db, "posts/"+id+"/comments"), cur_doc);
 
