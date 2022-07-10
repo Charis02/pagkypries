@@ -34,4 +34,4 @@ function initialize_page()
     return;
 }
 
-initialize_page();
+//initialize_page();
