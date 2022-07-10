@@ -159,6 +159,8 @@ function lesson_histograms()
     fetch("data/" + year + "/lessons_data.json")
     .then(response => { return response.json();})
     .then(function (jsondata) {
+        // clear the selector
+        lesson_selector.empty();
         for(let lesson in jsondata){
             lesson_selector.append($('<option>', {
                 value: lesson,

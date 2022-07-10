@@ -1,6 +1,11 @@
 function createSelect(plaisio_names) {
     let select = document.getElementById("plaisio-selector");
 
+    // clear the select
+    while (select.options.length > 0) {
+        select.remove(0);
+    }
+
     for(let i = 0;i < plaisio_names.length;i++)
     {
         let option = document.createElement("option");
