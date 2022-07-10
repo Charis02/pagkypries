@@ -1,5 +1,8 @@
 function initialize_page()
 {
+    if (window.ias)
+        window.ias.unbind();
+
     let page_name = window.location.pathname.split("/").pop();
     switch(page_name)
     {
