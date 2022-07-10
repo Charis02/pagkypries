@@ -126,7 +126,7 @@ function showPost(title,body,user,dateCreated)
     let post_bottom = document.createElement("div");
     post_bottom.id = "chosen-post-bottom";
     post_bottom.innerHTML = 'Γράφτηκε από ' + user;
-    post_bottom.innerHTML += ' στίς ' + dateCreated.toLocaleDateString('el-GR', dateOptions);
+    post_bottom.innerHTML += ' στις ' + dateCreated.toLocaleDateString('el-GR', dateOptions);
     post_box.appendChild(post_bottom);
 
     $('#chosen-post-box').html(post_box);
