@@ -29,7 +29,6 @@ async function selectHandler(filename)
 }
 
 async function rank_by_lesson(){
-
     let year = localStorage.getItem('chosen_year');
     let filename = 'data/' + year + '/lessons_data.json';
     await selectHandler(filename);
@@ -47,5 +46,32 @@ async function rank_by_lesson(){
         pagination: false,
         negativeMargin: 400,
         prefill: true,
+    });
+}
+
+async function select_lesson(){
+    console.log("select_lesson");
+    let year = localStorage.getItem('chosen_year');
+    let filename = 'data/' + year + '/lessons_data.json';
+
+    let lesson = $( "#lesson-selector" ).val();
+
+    localStorage.setItem('elements', JSON.stringify({'data':['code','rank','grade']}));
+    localStorage.setItem('field', lesson);
+    localStorage.setItem('filename', filename);
+    localStorage.setItem('lesson', lesson);
+    
+    $('#table tbody').empty();
+
+    // destroy other ias instance
+    
+    if(window.ias)
+        window.ias.unbind();
+
+    window.ias = new InfiniteAjaxScroll('#table tbody', {
+        item: '.row',
+        next: nextHandler(filename, ['code','rank','grade'], lesson),
+        pagination: false,
+        negativeMargin: 400
     });
 }
