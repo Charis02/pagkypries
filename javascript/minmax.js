@@ -10,6 +10,9 @@ function minmax()
 
   $('#table tbody').empty();
 
+  if (window.ias)
+    window.ias.unbind();
+
   window.ias = new InfiniteAjaxScroll('#table tbody', {
     item: '.row',
     next: nextHandler(filename, ['lesson','min','max','avg'],'data'),
