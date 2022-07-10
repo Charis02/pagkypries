@@ -18,12 +18,12 @@ function set_year(year)
     indicator.style.width = wid;
 
     $('#year-label h2').text("Χρονιά: "+ year);
-
+    
     initialize_page();
 }
 
 
-$(document).ready(function() 
+$(window).on("load",function() 
 {
     if(localStorage.getItem('chosen_year')==null)
         set_year(DEFAULT_YEAR);
