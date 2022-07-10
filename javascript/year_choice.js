@@ -22,11 +22,7 @@ function set_year(year)
     initialize_page();
 }
 
-
-$(window).on("load",function() 
-{
-    if(localStorage.getItem('chosen_year')==null)
-        set_year(DEFAULT_YEAR);
-    else
-        set_year(localStorage.getItem('chosen_year'));
-});
+if(localStorage.getItem('chosen_year')==null)
+    set_year(DEFAULT_YEAR);
+else
+    set_year(localStorage.getItem('chosen_year'));
